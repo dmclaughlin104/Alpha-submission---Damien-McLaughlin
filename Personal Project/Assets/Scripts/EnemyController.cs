@@ -28,7 +28,7 @@ public class EnemyController : MonoBehaviour
     }
 
 
-    //destroy enemies if attack is being used when a collision occurs
+    //destroy enemies if an attack is being used when a collision occurs
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Attack"))
