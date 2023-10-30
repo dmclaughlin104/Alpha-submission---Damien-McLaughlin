@@ -19,8 +19,6 @@ public class PlayerController : MonoBehaviour
     public int waveNumber;
 
     
-
-
     // Start is called before the first frame update
     void Start()
     {
@@ -77,87 +75,66 @@ public class PlayerController : MonoBehaviour
         //detect if player is attacking/slashing
         if (Input.GetKeyDown(KeyCode.Space) && hasPowerUp == false)
         {
-            SlashStandIn();
-            StartCoroutine(SlashUndoCountdown());
+            SlashEffect();
+            StartCoroutine(SlashEndCountdown());
         }
-
-        //
-        if (hasPowerUp == true)
-        {
-            flames.SetActive(true);
-            StartCoroutine(FlamesUndoCountdown());
-        }
-
-
     }
 
     //a method to represent the slash movement with stand in object
-    void SlashStandIn()
+    void SlashEffect()
     {
         attackObject.SetActive(true);
     }
 
-    void SlashUndo()
+    //ends the slash attack
+    //N.B. this won't work if included within single slash method
+    //as the slash will remain active
+    IEnumerator SlashEndCountdown()
     {
+        yield return new WaitForSeconds(0.2f);
         attackObject.SetActive(false);
     }
 
-    IEnumerator SlashUndoCountdown()
-    {
-        yield return new WaitForSeconds(0.2f);
-        SlashUndo();
-    }
-
-    //checking if triggers are activated
+    //actions if triggers are activated
     private void OnTriggerEnter(Collider other)
     {
-        //if player picks up power up
-        if (other.CompareTag("PowerUp"))
+        //if player picks up power up, start flame-thrower
+        if (other.CompareTag("PowerUp") && hasPowerUp == false)
         {
             Destroy(other.gameObject);
             flames.SetActive(true);
             hasPowerUp = true;
+            StartCoroutine(PowerUpEndCountdown());
         }//if
         //or if player is struck by enemy
         else if (other.CompareTag("Enemy") && damageBufferWait == false)
         {
-            HealthDown();
+            HealthDamage();
             //UnityEngine.Debug.Log("Buffer wait = " + damageBufferWait + " ...and should be True");
-
         }//else if
     }
 
     //method for depleting health
-    void HealthDown()
+    void HealthDamage()
     {
         healthCount--;
         damageBufferWait = true;
-        StartCoroutine(DamageTakingCountdown());
+        StartCoroutine(DamageBufferCountdown());
     }
     
-
-    //method to limit the amount of damage you can take in one skirmish
-
-    void resetDamageBufferFalse()
+    //damage buffer method to limit the amount of health you can lose in a short period
+    IEnumerator DamageBufferCountdown()
     {
+        yield return new WaitForSeconds(2.5f);
         damageBufferWait = false;
-    }
-
-    IEnumerator DamageTakingCountdown()
-    {
-        yield return new WaitForSeconds(2);
-        resetDamageBufferFalse();
         //UnityEngine.Debug.Log("Buffer wait = " + damageBufferWait + " ...and should be false");
     }
 
-    void FlamesUndo()
-    {
-        flames.SetActive(false);
-    }
-    IEnumerator FlamesUndoCountdown()
+    //ends the flamethrower power-up
+    IEnumerator PowerUpEndCountdown()
     {
         yield return new WaitForSeconds(4.0f);
-        FlamesUndo();
+        flames.SetActive(false);
         hasPowerUp = false;
     }
 

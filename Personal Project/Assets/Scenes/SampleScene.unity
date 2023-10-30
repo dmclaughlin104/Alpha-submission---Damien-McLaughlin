@@ -145,12 +145,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e2c16ae51609eb4aa2a674e09d491e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  forwardSpeed: 5
   attackObject: {fileID: 601322145}
   flames: {fileID: 1261264253}
+  spawnManagerScript: {fileID: 494480045}
+  forwardSpeed: 5
   hasPowerUp: 0
   waveNumber: 1
-  spawnManagerScript: {fileID: 494480045}
 --- !u!54 &40008281
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -197,8 +197,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.32, y: 3.04, z: 1}
-  m_Center: {x: 0.01, y: 1.6659294, z: 0}
+  m_Size: {x: 1.32, y: 3.04, z: 0.6492038}
+  m_Center: {x: 0.00999999, y: 1.6659293, z: 0.023084745}
 --- !u!1001 &430020795
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1076,8 +1076,8 @@ GameObject:
   - component: {fileID: 1261264254}
   - component: {fileID: 1261264258}
   - component: {fileID: 1261264257}
-  - component: {fileID: 1261264256}
   - component: {fileID: 1261264255}
+  - component: {fileID: 1261264259}
   m_Layer: 0
   m_Name: Flames
   m_TagString: Attack
@@ -1127,29 +1127,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!136 &1261264256
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1261264253}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5000001
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
 --- !u!23 &1261264257
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1200,6 +1177,27 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1261264253}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!65 &1261264259
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1261264253}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1.0000001, y: 2.0000002, z: 1.0000004}
+  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940698}
 --- !u!1 &1368025180
 GameObject:
   m_ObjectHideFlags: 0
