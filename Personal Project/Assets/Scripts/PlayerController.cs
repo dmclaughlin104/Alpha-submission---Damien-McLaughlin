@@ -15,7 +15,7 @@ public class PlayerController : MonoBehaviour
     private float zBoundary = 7;
     public bool hasPowerUp = false;
     private bool damageBufferWait = false;
-    private int healthCount = 3;
+    public int healthCount = 3;
     public int waveNumber;
 
     
