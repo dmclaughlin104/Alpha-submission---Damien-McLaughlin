@@ -42,7 +42,7 @@ public class PlayerController : MonoBehaviour
             UnityEngine.Debug.Log("You've died - Game Over. You reached wave " + waveNumber);
         }
            
-        //player movemebt controls:
+        //player movement controls:
         float forwardInput = Input.GetAxis("Vertical");
         float horizontalInput = Input.GetAxis("Horizontal");
         transform.Translate(Vector3.forward * forwardInput * forwardSpeed * Time.deltaTime);
