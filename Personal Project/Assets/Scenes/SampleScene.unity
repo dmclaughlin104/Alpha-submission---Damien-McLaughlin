@@ -1183,12 +1183,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 574584b457af43c4f801bbac9006cbf5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  titleText: {fileID: 304235914}
   waveText: {fileID: 224226448}
   healthText: {fileID: 46009039}
   gameOver1: {fileID: 1520125825}
   gameOver2: {fileID: 1669525653}
-  startButton: {fileID: 1423409655}
   gameActive: 0
 --- !u!1 &963194225
 GameObject:
