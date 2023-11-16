@@ -14,7 +14,7 @@ public class SpawnManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //spawn first wave
+        //this is needed at present - move into Game Manager?
         SpawnEnemyWave(nextWave);
     }
 
@@ -23,6 +23,19 @@ public class SpawnManager : MonoBehaviour
     {
         //setting enemy count - N.B. using the scripts applied, not the tag
         enemyCount = FindObjectsOfType<EnemyController>().Length;
+
+        //starting to call waves of enenmies... - move this to Game Manager?
+        // seem to be starting on wave two now... why?
+        StartGameplay();
+
+
+    }
+
+
+    void StartGameplay()
+    {
+        //spawn first wave - this is spawning continuously?
+        //SpawnEnemyWave(nextWave); - not needed?
 
         //if all enemies are defeated, spawn more
         if ((enemyCount == 0))
@@ -35,6 +48,7 @@ public class SpawnManager : MonoBehaviour
             {
                 SpawnPowerUp();
             }//if
+
         }//if
     }
 
