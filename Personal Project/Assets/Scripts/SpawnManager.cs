@@ -9,13 +9,14 @@ public class SpawnManager : MonoBehaviour
     public GameObject powerUpPrefab;
     private float spawnRange = 7;
     public int enemyCount;
-    public int nextWave = 1;
+    public int nextWave;
+
 
     // Start is called before the first frame update
     void Start()
     {
         //this is needed at present - move into Game Manager?
-        SpawnEnemyWave(nextWave);
+        //SpawnEnemyWave(nextWave);
     }
 
     // Update is called once per frame
@@ -28,14 +29,13 @@ public class SpawnManager : MonoBehaviour
         // seem to be starting on wave two now... why?
         StartGameplay();
 
-
     }
 
 
     void StartGameplay()
     {
-        //spawn first wave - this is spawning continuously?
-        //SpawnEnemyWave(nextWave); - not needed?
+
+        //if number spawning doesn't seem right, check int value in Unity...
 
         //if all enemies are defeated, spawn more
         if ((enemyCount == 0))

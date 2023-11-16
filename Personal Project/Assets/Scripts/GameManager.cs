@@ -9,11 +9,12 @@ using Unity.VisualScripting;
 public class GameManager : MonoBehaviour
 {
 
+    public TextMeshProUGUI titleScreen;
+    public Button startButton;
     public TextMeshProUGUI waveText;
     public TextMeshProUGUI healthText;
     public TextMeshProUGUI gameOver1;
     public TextMeshProUGUI gameOver2;
-    //private TextMeshProUGUI startMenu;
     private PlayerController playerControllerScript;
     private SpawnManager spawnManagerScript;
 

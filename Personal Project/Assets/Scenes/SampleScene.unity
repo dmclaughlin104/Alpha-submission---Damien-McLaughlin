@@ -859,7 +859,7 @@ MonoBehaviour:
   enemyPrefab: {fileID: 7924506371036265064, guid: 6c51bc801f70c5743b13a887ce08d805, type: 3}
   powerUpPrefab: {fileID: 6557536704614178829, guid: 486b8d2f04f028d4b8aa55c3025ee925, type: 3}
   enemyCount: 0
-  nextWave: 1
+  nextWave: 0
 --- !u!4 &494480046
 Transform:
   m_ObjectHideFlags: 0
@@ -1183,6 +1183,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 574584b457af43c4f801bbac9006cbf5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  titleScreen: {fileID: 304235914}
+  startButton: {fileID: 1423409655}
   waveText: {fileID: 224226448}
   healthText: {fileID: 46009039}
   gameOver1: {fileID: 1520125825}
