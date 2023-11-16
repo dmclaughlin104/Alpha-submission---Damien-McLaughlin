@@ -26,7 +26,19 @@ public class SpawnManager : MonoBehaviour
 
         //starting to call waves of enenmies... - move this to Game Manager?
         // seem to be starting on wave two now... why?
-        StartGameplay();
+        //if all enemies are defeated, spawn more
+        if ((enemyCount == 0))
+        {
+            nextWave++;//increase number in wave
+            SpawnEnemyWave(nextWave);
+
+            //spawn a power up every even-numbered wave (over 4)
+            if (nextWave >= 4 && ((nextWave % 2) == 0))
+            {
+                SpawnPowerUp();
+            }//if
+
+        }//if
 
 
     }
