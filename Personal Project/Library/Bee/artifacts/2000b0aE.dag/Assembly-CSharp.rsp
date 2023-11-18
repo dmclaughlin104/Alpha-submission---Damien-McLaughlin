@@ -338,6 +338,7 @@
 "Assets/Scripts/EnemyController.cs"
 "Assets/Scripts/GameManager.cs"
 "Assets/Scripts/PlayerController.cs"
+"Assets/Scripts/PlayerFollow.cs"
 "Assets/Scripts/SpawnManager.cs"
 "Assets/TextMesh Pro/Examples & Extras/Scripts/Benchmark01.cs"
 "Assets/TextMesh Pro/Examples & Extras/Scripts/Benchmark01_UGUI.cs"

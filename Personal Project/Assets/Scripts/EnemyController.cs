@@ -17,12 +17,14 @@ public class EnemyController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //N.B. will need to address rotation of enemies
         //determining direction toward player
         Vector3 lookDirection = ((player.transform.position + new Vector3(0, 1, 0)) - transform.position).normalized;
 
         //moving enemy toward player
         transform.Translate(lookDirection *  speed * Time.deltaTime);
+
+        //rotating enemy to face player - not sure if this is working...
+        transform.LookAt(transform.position);
 
 
     }

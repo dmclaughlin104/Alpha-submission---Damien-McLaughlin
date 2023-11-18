@@ -29,18 +29,13 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+
+
         //assigning wave number from Spawn Manager
         waveNumber = spawnManagerScript.nextWave;
 
-        //printing current health to debug log
-        if (healthCount > 0)
-        {
-            UnityEngine.Debug.Log("Your health = " + healthCount + "/3. You are on wave = " + waveNumber);
-        }
-        else
-        {
-            UnityEngine.Debug.Log("You've died - Game Over. You reached wave " + waveNumber);
-        }
+
            
         //player movement controls:
         float forwardInput = Input.GetAxis("Vertical");
@@ -77,6 +72,12 @@ public class PlayerController : MonoBehaviour
         {
             SlashEffect();
             StartCoroutine(SlashEndCountdown());
+        }
+
+        //set player in-active if dead
+        if (healthCount == 0)
+        {
+            gameObject.SetActive(false);
         }
     }
 
@@ -136,6 +137,20 @@ public class PlayerController : MonoBehaviour
         yield return new WaitForSeconds(4.0f);
         flames.SetActive(false);
         hasPowerUp = false;
+    }
+
+    //method for debugging
+    void PrintHealthToDebugLog()
+    {
+        //printing current health to debug log
+        if (healthCount > 0)
+        {
+            UnityEngine.Debug.Log("Your health = " + healthCount + "/3. You are on wave = " + waveNumber);
+        }
+        else
+        {
+            UnityEngine.Debug.Log("You've died - Game Over. You reached wave " + waveNumber);
+        }
     }
 
 

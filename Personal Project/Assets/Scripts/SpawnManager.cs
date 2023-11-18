@@ -17,8 +17,7 @@ public class SpawnManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //this is needed at present - move into Game Manager?
-        //SpawnEnemyWave(nextWave);
+
     }
 
     // Update is called once per frame

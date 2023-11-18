@@ -27,6 +27,7 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //finding scripts
         playerControllerScript = GameObject.Find("Player").GetComponent<PlayerController>();
         spawnManagerScript = GameObject.Find("Spawn Manager").GetComponent<SpawnManager>();
         //startButton = GetComponent<Button>();

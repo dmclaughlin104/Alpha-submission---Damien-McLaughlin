@@ -1,11 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 public class CameraMovement : MonoBehaviour
 {
 
     public GameObject player;
+    private Vector3 distance = new Vector3(0.03f, 2.99f, -3.75f);
 
 
     // Start is called before the first frame update
@@ -15,12 +18,18 @@ public class CameraMovement : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void LateUpdate()
     {
-        //NOTE - not currently being used
-        //camera is currently attached to the player
-        transform.position = player.transform.position + new Vector3(7.3f, 4, -3.3f);
+
+        Vector3 back = player.transform.forward;
+        back.y = -1f;
         
+        // this determines how high. Increase for higher view angle.
+        transform.position = player.transform.position - back * 5;
+
+        transform.forward = player.transform.position - transform.position;
 
     }
+
+
 }
