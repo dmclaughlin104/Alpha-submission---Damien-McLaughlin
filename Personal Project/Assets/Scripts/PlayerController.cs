@@ -16,7 +16,6 @@ public class PlayerController : MonoBehaviour
     public bool hasPowerUp = false;
     private bool damageBufferWait = false;
     public int healthCount = 3;
-    public int waveNumber;
 
     
     // Start is called before the first frame update
@@ -30,13 +29,6 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
 
-
-
-        //assigning wave number from Spawn Manager
-        waveNumber = spawnManagerScript.nextWave;
-
-
-           
         //player movement controls:
         float forwardInput = Input.GetAxis("Vertical");
         float horizontalInput = Input.GetAxis("Horizontal");
@@ -74,12 +66,10 @@ public class PlayerController : MonoBehaviour
             StartCoroutine(SlashEndCountdown());
         }
 
-        //set player in-active if dead
-        if (healthCount == 0)
-        {
-            gameObject.SetActive(false);
-        }
+
     }
+
+
 
     //a method to represent the slash movement with stand in object
     void SlashEffect()
@@ -122,6 +112,13 @@ public class PlayerController : MonoBehaviour
         damageBufferWait = true;
         StartCoroutine(DamageBufferCountdown());
     }
+
+    public void ResetHealth()
+    {
+        healthCount = 3;
+    }
+
+
     
     //damage buffer method to limit the amount of health you can lose in a short period
     IEnumerator DamageBufferCountdown()
@@ -145,11 +142,11 @@ public class PlayerController : MonoBehaviour
         //printing current health to debug log
         if (healthCount > 0)
         {
-            UnityEngine.Debug.Log("Your health = " + healthCount + "/3. You are on wave = " + waveNumber);
+            UnityEngine.Debug.Log("Your health = " + healthCount + "/3. You are on wave = " + spawnManagerScript.nextWave);
         }
         else
         {
-            UnityEngine.Debug.Log("You've died - Game Over. You reached wave " + waveNumber);
+            UnityEngine.Debug.Log("You've died - Game Over. You reached wave " + spawnManagerScript.nextWave);
         }
     }
 
