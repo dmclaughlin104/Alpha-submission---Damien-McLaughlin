@@ -11,6 +11,8 @@ public class SpawnManager : MonoBehaviour
     public int enemyCount;
     public int nextWave;
 
+    public bool gameActive = false;
+
 
     // Start is called before the first frame update
     void Start()
@@ -27,15 +29,23 @@ public class SpawnManager : MonoBehaviour
 
         //starting to call waves of enenmies... - move this to Game Manager?
         // seem to be starting on wave two now... why?
-        StartGameplay();
+        
+        
+        if (gameActive == true)
+        {
+            StartGameplay();
+        }
+        
+
 
     }
 
 
-    void StartGameplay()
+    public void StartGameplay()
     {
 
         //if number spawning doesn't seem right, check int value in Unity...
+
 
         //if all enemies are defeated, spawn more
         if ((enemyCount == 0))
@@ -61,15 +71,16 @@ public class SpawnManager : MonoBehaviour
         }
     }
 
+
     //method to spawn power up
-    void SpawnPowerUp()
+    public void SpawnPowerUp()
     {
         Instantiate(powerUpPrefab, GenerateSpawnPos(), enemyPrefab.transform.rotation);
     }
 
 
     //method to generate a new random spawn position
-    private Vector3 GenerateSpawnPos()
+    public Vector3 GenerateSpawnPos()
     {
         //variables
         float spawnPosX = Random.Range(-spawnRange, spawnRange);
@@ -79,6 +90,11 @@ public class SpawnManager : MonoBehaviour
         Vector3 spawnPos = new Vector3(spawnPosX, 1.0f, spawnPosZ);
 
         return spawnPos;
+    }
+
+    public void ResetNextWave()
+    {
+        nextWave = 0;
     }
 
 }

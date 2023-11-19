@@ -17,9 +17,11 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI gameOver2;
     private PlayerController playerControllerScript;
     private SpawnManager spawnManagerScript;
+    private GameObject[] enemies;
 
 
-    public bool gameActive;
+
+    private bool gameActive = false;
 
 
     // Start is called before the first frame update
@@ -27,21 +29,53 @@ public class GameManager : MonoBehaviour
     {
         playerControllerScript = GameObject.Find("Player").GetComponent<PlayerController>();
         spawnManagerScript = GameObject.Find("Spawn Manager").GetComponent<SpawnManager>();
+        //startButton = GetComponent<Button>();
+        startButton.onClick.AddListener(StartGame);
+
         
     }
 
     // Update is called once per frame
     void Update()
     {
+
+        enemies = GameObject.FindGameObjectsWithTag("Enemy");
         
-        UpdateWaveText(playerControllerScript.waveNumber);
+        UpdateWaveText(spawnManagerScript.nextWave);
         UpdateHealth(playerControllerScript.healthCount);
 
     }
 
     //method to start game...
-    public void StartGame()
+    void StartGame()
     {
+        //Debug.Log("Button clicked");
+
+        healthText.gameObject.SetActive(true);
+        waveText.gameObject.SetActive(true);
+
+        gameOver1.gameObject.SetActive(false);
+        gameOver2.gameObject.SetActive(false);
+
+        if (playerControllerScript.healthCount > 0)
+        {
+            spawnManagerScript.gameActive = true;
+
+            //setting title screen/button inactive when gameplay begins
+            titleScreen.gameObject.SetActive(false);
+            startButton.gameObject.SetActive(false);
+
+        }
+        
+ 
+    }
+
+    void EndGame()
+    {
+        spawnManagerScript.gameActive = false;
+        startButton.gameObject.SetActive(true);
+        playerControllerScript.ResetHealth();
+        spawnManagerScript.ResetNextWave();
 
     }
 
@@ -61,13 +95,20 @@ public class GameManager : MonoBehaviour
         }
         else
         {
+            int gameOverWaveNumber = spawnManagerScript.nextWave;
             healthText.gameObject.SetActive(false);
             waveText.gameObject.SetActive(false);
-            gameOver2.text = "You reached wave " + playerControllerScript.waveNumber;
+            gameOver2.text = "You reached wave " + gameOverWaveNumber;
             gameOver1.gameObject.SetActive(true);
             gameOver2.gameObject.SetActive(true);
+            EndGame();
 
-
+            //test with destroying enemies at end of game...
+            foreach(GameObject enemy in enemies)
+            {
+                Destroy(enemy);
+            }
+            
         }
     }
 
