@@ -9,6 +9,8 @@ public class PlayerController : MonoBehaviour
     public GameObject attackObject;
     public GameObject flames;
     public SpawnManager spawnManagerScript;
+    private AudioSource playerAudio;
+    //public AudioClip slashSound;
     public float forwardSpeed = 5.0f;
     private float turnSpeed = 150.0f;
     private float xBoundary = 8;
@@ -23,6 +25,8 @@ public class PlayerController : MonoBehaviour
     {
         //finding Spawn Manager in order to take wave number variable
         spawnManagerScript = GameObject.Find("Spawn Manager").GetComponent<SpawnManager>();
+
+        playerAudio = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -63,6 +67,7 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space) && hasPowerUp == false)
         {
             SlashEffect();
+            playerAudio.Play();
             StartCoroutine(SlashEndCountdown());
         }
 
@@ -75,6 +80,7 @@ public class PlayerController : MonoBehaviour
     void SlashEffect()
     {
         attackObject.SetActive(true);
+        
     }
 
     //ends the slash attack

@@ -8,7 +8,7 @@ public class CameraMovement : MonoBehaviour
 {
 
     public GameObject player;
-    private Vector3 distance = new Vector3(0.03f, 2.99f, -3.75f);
+
 
 
     // Start is called before the first frame update
@@ -21,6 +21,7 @@ public class CameraMovement : MonoBehaviour
     void LateUpdate()
     {
 
+        //this was the result of some googling. It is working, but I'd like to research further
         Vector3 back = player.transform.forward;
         back.y = -1f;
         

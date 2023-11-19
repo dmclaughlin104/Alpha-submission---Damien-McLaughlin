@@ -30,7 +30,8 @@ public class GameManager : MonoBehaviour
         //finding scripts
         playerControllerScript = GameObject.Find("Player").GetComponent<PlayerController>();
         spawnManagerScript = GameObject.Find("Spawn Manager").GetComponent<SpawnManager>();
-        //startButton = GetComponent<Button>();
+
+        //adding listener to button
         startButton.onClick.AddListener(StartGame);
 
         
@@ -43,7 +44,7 @@ public class GameManager : MonoBehaviour
         enemies = GameObject.FindGameObjectsWithTag("Enemy");
         
         UpdateWaveText(spawnManagerScript.nextWave);
-        UpdateHealth(playerControllerScript.healthCount);
+        HealthManager(playerControllerScript.healthCount);
 
     }
 
@@ -71,6 +72,7 @@ public class GameManager : MonoBehaviour
  
     }
 
+    //method to set game as inactive and reset key elements for next play
     void EndGame()
     {
         spawnManagerScript.gameActive = false;
@@ -78,6 +80,11 @@ public class GameManager : MonoBehaviour
         //playerControllerScript.ResetHealth();
         spawnManagerScript.ResetNextWave();
 
+        //destroying all remaining enemies at the end of the game
+        foreach (GameObject enemy in enemies)
+        {
+            Destroy(enemy);
+        }
     }
 
 
@@ -88,7 +95,7 @@ public class GameManager : MonoBehaviour
     }
 
     //method to keep health text up to date
-    public void UpdateHealth(int pHealthNo)
+    public void HealthManager(int pHealthNo)
     {
         if (playerControllerScript.healthCount > 0)
         {
@@ -104,12 +111,6 @@ public class GameManager : MonoBehaviour
             gameOver2.gameObject.SetActive(true);
             EndGame();
 
-            //test with destroying enemies at end of game...
-            foreach(GameObject enemy in enemies)
-            {
-                Destroy(enemy);
-            }
-            
         }
     }
 
