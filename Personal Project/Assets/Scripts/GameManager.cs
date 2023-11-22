@@ -74,7 +74,7 @@ public class GameManager : MonoBehaviour
     {
         spawnManagerScript.gameActive = false;
         startButton.gameObject.SetActive(true);
-        playerControllerScript.ResetHealth();
+        //playerControllerScript.ResetHealth();
         spawnManagerScript.ResetNextWave();
 
     }
