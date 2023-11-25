@@ -31,13 +31,14 @@ public class GameManager : MonoBehaviour
         //adding listener to button
         startButton.onClick.AddListener(StartGame);
 
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        //finding enemies for array
+        //needs to be in update to keep up to date
         enemies = GameObject.FindGameObjectsWithTag("Enemy");
         
         UpdateWaveText(spawnManagerScript.nextWave);
@@ -74,7 +75,7 @@ public class GameManager : MonoBehaviour
     {
         spawnManagerScript.gameActive = false;
         startButton.gameObject.SetActive(true);
-        //playerControllerScript.ResetHealth();
+        playerControllerScript.ResetHealth();
         spawnManagerScript.ResetNextWave();
 
         //destroying all remaining enemies at the end of the game

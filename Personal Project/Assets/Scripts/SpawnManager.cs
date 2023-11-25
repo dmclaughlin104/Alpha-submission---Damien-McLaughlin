@@ -43,7 +43,7 @@ public class SpawnManager : MonoBehaviour
     public void StartGameplay()
     {
 
-        //if number spawning doesn't seem right, check int value in Unity...
+        //NOTE: if number spawning doesn't seem right, check int value in Unity...
 
 
         //if all enemies are defeated, spawn more

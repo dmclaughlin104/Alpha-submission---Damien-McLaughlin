@@ -23,7 +23,6 @@ public class PlayerController : MonoBehaviour
     private float zBoundary = 7;
     public bool hasPowerUp = false;
     private bool damageBufferWait = false;
-    //private bool stopFlamethrowerTimer;
     public int healthCount = 3;
     public int maxHealth = 3;
     private float flamethrowerTime = 4.0f;
@@ -38,7 +37,7 @@ public class PlayerController : MonoBehaviour
 
         playerAudio = GetComponent<AudioSource>();
 
-        //toying with flame-thrower timer UI
+        //setting value for flame-thrower slider
         flameThrowerSlider.maxValue = flamethrowerTime;
 
     }
@@ -129,8 +128,6 @@ public class PlayerController : MonoBehaviour
             hasPowerUp = true;
             StartCoroutine(FlamethrowerCountdown());
 
-            //FlameThrowerUI();//attempt at UI
-
         }//if
         //or if player is struck by enemy
         else if (other.CompareTag("Enemy") && damageBufferWait == false)
@@ -148,6 +145,7 @@ public class PlayerController : MonoBehaviour
         StartCoroutine(DamageBufferCountdown());
     }
 
+    //method to reset health to full
     public void ResetHealth()
     {
         healthCount = maxHealth;
