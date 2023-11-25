@@ -8,16 +8,21 @@ using Unity.VisualScripting;
 
 public class GameManager : MonoBehaviour
 {
+    //UI elements
+    [SerializeField] TextMeshProUGUI titleScreen;
+    [SerializeField] Button startButton;
+    [SerializeField] TextMeshProUGUI waveText;
+    [SerializeField] TextMeshProUGUI healthText;
+    [SerializeField] TextMeshProUGUI gameOver1;
+    [SerializeField] TextMeshProUGUI gameOver2;
+    [SerializeField] TextMeshProUGUI timerText;
 
-    public TextMeshProUGUI titleScreen;
-    public Button startButton;
-    public TextMeshProUGUI waveText;
-    public TextMeshProUGUI healthText;
-    public TextMeshProUGUI gameOver1;
-    public TextMeshProUGUI gameOver2;
+    //variables
     private PlayerController playerControllerScript;
     private SpawnManager spawnManagerScript;
     private GameObject[] enemies;
+    private float secondsCount;
+    private int minuteCount;
 
 
 
@@ -44,6 +49,12 @@ public class GameManager : MonoBehaviour
         UpdateWaveText(spawnManagerScript.nextWave);
         HealthManager(playerControllerScript.healthCount);
 
+        //activating UI timer
+        if (spawnManagerScript.gameActive)
+        {
+            UpdateTimerUI();
+        }
+
     }
 
     //method to start game...
@@ -51,38 +62,64 @@ public class GameManager : MonoBehaviour
     {
         //Debug.Log("Button clicked");
 
+        //resetting UI timer to 00:00;
+        minuteCount = 0;
+        secondsCount = 0;
+
+        //activating & deactivating UI elements
         healthText.gameObject.SetActive(true);
         waveText.gameObject.SetActive(true);
+        timerText.gameObject.SetActive(true);
 
         gameOver1.gameObject.SetActive(false);
         gameOver2.gameObject.SetActive(false);
 
+        //while player still has health:
         if (playerControllerScript.healthCount > 0)
         {
+            //telling spawn manager that game is active
             spawnManagerScript.gameActive = true;
 
             //setting title screen/button inactive when gameplay begins
             titleScreen.gameObject.SetActive(false);
             startButton.gameObject.SetActive(false);
+            timerText.gameObject.SetActive(true);
 
         }
         
  
     }
 
-    //method to set game as inactive and reset key elements for next play
-    void EndGame()
+    //method to call the game over screen and reset elements for 
+    void GameOverScreen()
     {
+        int gameOverWaveNumber = spawnManagerScript.nextWave;
+
         spawnManagerScript.gameActive = false;
+
         startButton.gameObject.SetActive(true);
-        playerControllerScript.ResetHealth();
-        spawnManagerScript.ResetNextWave();
+
+        healthText.gameObject.SetActive(false);
+        waveText.gameObject.SetActive(false);
+        timerText.gameObject.SetActive(false);
+
+        gameOver2.text = "You reached" + "\n" + "wave " + gameOverWaveNumber + "\n in \n" +
+            minuteCount + " mins " + (int)secondsCount + " secs";
+        gameOver1.gameObject.SetActive(true);
+        gameOver2.gameObject.SetActive(true);
 
         //destroying all remaining enemies at the end of the game
         foreach (GameObject enemy in enemies)
         {
             Destroy(enemy);
         }
+    }
+
+    //reset game elements for next play;
+    void ResetForNextPlay()
+    {
+        playerControllerScript.ResetHealth();
+        spawnManagerScript.ResetNextWave();
     }
 
 
@@ -101,15 +138,23 @@ public class GameManager : MonoBehaviour
         }
         else
         {
-            int gameOverWaveNumber = spawnManagerScript.nextWave;
-            healthText.gameObject.SetActive(false);
-            waveText.gameObject.SetActive(false);
-            gameOver2.text = "You reached wave " + gameOverWaveNumber;
-            gameOver1.gameObject.SetActive(true);
-            gameOver2.gameObject.SetActive(true);
-            EndGame();
-
+            GameOverScreen();
+            ResetForNextPlay();
         }
     }
+
+    void UpdateTimerUI()
+    {
+        //set timer UI
+        secondsCount += Time.deltaTime;
+        timerText.text = string.Format("{0:00}:{1:00}", minuteCount, secondsCount);
+        if (secondsCount >= 60)
+        {
+            minuteCount++;
+            secondsCount = 0;
+        }
+
+    }
+
 
 }
