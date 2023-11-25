@@ -8,21 +8,21 @@ using UnityEngine.UI;
 public class PlayerController : MonoBehaviour
 {
     //variables
-    public GameObject attackObject;
-    public GameObject flames;
-    public SpawnManager spawnManagerScript;
-    private AudioSource playerAudio;
-    public Slider flameThrowerSlider; //move to Game Manager?
+    [SerializeField] GameObject attackObject;
+    [SerializeField] GameObject flames;
+    private SpawnManager spawnManagerScript;
+    public DamageFlash damageFlashScript;
+    [SerializeField] AudioSource playerAudio;
+    [SerializeField] Slider flameThrowerSlider; //move to Game Manager?
 
 
-
-    //public AudioClip slashSound;
-    public float forwardSpeed = 5.0f;
+    private float forwardSpeed = 5.0f;
     private float turnSpeed = 150.0f;
     private float xBoundary = 8;
     private float zBoundary = 7;
-    public bool hasPowerUp = false;
+    private bool hasPowerUp = false;
     private bool damageBufferWait = false;
+    private bool flashing = false;
     public int healthCount = 3;
     public int maxHealth = 3;
     private float flamethrowerTime = 4.0f;
@@ -35,6 +35,10 @@ public class PlayerController : MonoBehaviour
         //finding Spawn Manager in order to take wave number variable
         spawnManagerScript = GameObject.Find("Spawn Manager").GetComponent<SpawnManager>();
 
+        //finding Damage Flash Script
+        damageFlashScript = GameObject.Find("Damage Flash Capsule").GetComponent<DamageFlash>();
+
+        //getting player audio
         playerAudio = GetComponent<AudioSource>();
 
         //setting value for flame-thrower slider
@@ -95,6 +99,17 @@ public class PlayerController : MonoBehaviour
             StartCoroutine(SlashEndCountdown());
         }
 
+        //TESTING WITH DAMAGE FLASH
+        if (damageBufferWait)
+        {
+            InvokeRepeating("DamageFlash2", 0f, 0.5f);
+        }
+        else
+        {
+            CancelInvoke("DamageFlash2");
+        }
+
+
 
     }
 
@@ -142,8 +157,30 @@ public class PlayerController : MonoBehaviour
     {
         healthCount--;
         damageBufferWait = true;
+        //DamageFlash1();//TESTING
         StartCoroutine(DamageBufferCountdown());
     }
+
+    //TESTING WITH DAMAGE FLASH INDICATOR
+    void DamageFlash1()
+    {
+        if (damageBufferWait)
+        {
+            InvokeRepeating("DamageFlash2", 0.15f, 0.3f);
+        }
+
+    }
+
+    void DamageFlash2()
+    {
+
+        for (float repeatTime = 2.5f; repeatTime > 0; repeatTime -= Time.deltaTime)
+        {
+            damageFlashScript.FlashStart();
+        }
+
+    }
+
 
     //method to reset health to full
     public void ResetHealth()
@@ -159,6 +196,12 @@ public class PlayerController : MonoBehaviour
         yield return new WaitForSeconds(damageBufferTime);
         damageBufferWait = false;
         //UnityEngine.Debug.Log("Buffer wait = " + damageBufferWait + " ...and should be false");
+    }
+
+    IEnumerator DamageFlashCountdown()
+    {
+        yield return new WaitForSeconds(0.3f);
+        
     }
 
     //ends the flamethrower power-up
