@@ -13,7 +13,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] GameObject damageIndicator;
     private SpawnManager spawnManagerScript;
     [SerializeField] AudioSource playerAudio;
-    [SerializeField] Slider flameThrowerSlider; //move to Game Manager?
+    [SerializeField] AudioClip slashSound;
+    [SerializeField] AudioClip flamethrowerSound;
+    [SerializeField] Slider flameThrowerSlider;//move to Game Manager?
 
 
     private float forwardSpeed = 5.0f;
@@ -90,7 +92,8 @@ public class PlayerController : MonoBehaviour
         {
             //playing slash sound effect
             //(here rather than in method in an attempt to reduce lag)
-            playerAudio.Play();
+            playerAudio.PlayOneShot (slashSound);
+
             SlashEffect();
             StartCoroutine(SlashEndCountdown());
         }
@@ -126,6 +129,8 @@ public class PlayerController : MonoBehaviour
             flames.SetActive(true);
             flameThrowerSlider.value = flamethrowerTime;//setting UI back to full
             hasPowerUp = true;
+
+            playerAudio.PlayOneShot(flamethrowerSound);
             StartCoroutine(FlamethrowerCountdown());
 
         }//if
