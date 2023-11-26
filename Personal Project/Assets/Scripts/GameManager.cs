@@ -16,6 +16,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI gameOver1;
     [SerializeField] TextMeshProUGUI gameOver2;
     [SerializeField] TextMeshProUGUI timerText;
+    [SerializeField] Slider flamethrowerBar;
+    [SerializeField] TextMeshProUGUI flamethrowerText;
 
     //variables
     private PlayerController playerControllerScript;
@@ -53,6 +55,15 @@ public class GameManager : MonoBehaviour
         if (spawnManagerScript.gameActive)
         {
             UpdateTimerUI();
+        }
+
+        if (playerControllerScript.hasPowerUp)
+        {
+            FlameThrowerUIActive();
+        }
+        else
+        {
+            FlameThrowerUINotActive();
         }
 
     }
@@ -154,6 +165,18 @@ public class GameManager : MonoBehaviour
             secondsCount = 0;
         }
 
+    }
+
+    void FlameThrowerUIActive()
+    {
+        flamethrowerBar.gameObject.SetActive(true);
+        flamethrowerText.gameObject.SetActive(true);
+    }
+
+    void FlameThrowerUINotActive()
+    {
+        flamethrowerBar.gameObject.SetActive(false);
+        flamethrowerText.gameObject.SetActive(false);
     }
 
 

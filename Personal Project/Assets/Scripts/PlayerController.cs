@@ -10,8 +10,8 @@ public class PlayerController : MonoBehaviour
     //variables
     [SerializeField] GameObject attackObject;
     [SerializeField] GameObject flames;
+    [SerializeField] GameObject damageIndicator;
     private SpawnManager spawnManagerScript;
-    public DamageFlash damageFlashScript;
     [SerializeField] AudioSource playerAudio;
     [SerializeField] Slider flameThrowerSlider; //move to Game Manager?
 
@@ -20,9 +20,8 @@ public class PlayerController : MonoBehaviour
     private float turnSpeed = 150.0f;
     private float xBoundary = 8;
     private float zBoundary = 7;
-    private bool hasPowerUp = false;
+    public bool hasPowerUp = false;
     private bool damageBufferWait = false;
-    private bool flashing = false;
     public int healthCount = 3;
     public int maxHealth = 3;
     private float flamethrowerTime = 4.0f;
@@ -34,9 +33,6 @@ public class PlayerController : MonoBehaviour
     {
         //finding Spawn Manager in order to take wave number variable
         spawnManagerScript = GameObject.Find("Spawn Manager").GetComponent<SpawnManager>();
-
-        //finding Damage Flash Script
-        damageFlashScript = GameObject.Find("Damage Flash Capsule").GetComponent<DamageFlash>();
 
         //getting player audio
         playerAudio = GetComponent<AudioSource>();
@@ -54,9 +50,9 @@ public class PlayerController : MonoBehaviour
         //flame-throwerUI
         if (hasPowerUp == true)
         {
-
             FlameThrowerUI();
         }
+
 
 
         //player movement controls:
@@ -98,17 +94,6 @@ public class PlayerController : MonoBehaviour
             SlashEffect();
             StartCoroutine(SlashEndCountdown());
         }
-
-        //TESTING WITH DAMAGE FLASH
-        if (damageBufferWait)
-        {
-            InvokeRepeating("DamageFlash2", 0f, 0.5f);
-        }
-        else
-        {
-            CancelInvoke("DamageFlash2");
-        }
-
 
 
     }
@@ -157,28 +142,8 @@ public class PlayerController : MonoBehaviour
     {
         healthCount--;
         damageBufferWait = true;
-        //DamageFlash1();//TESTING
+        damageIndicator.gameObject.SetActive(true);
         StartCoroutine(DamageBufferCountdown());
-    }
-
-    //TESTING WITH DAMAGE FLASH INDICATOR
-    void DamageFlash1()
-    {
-        if (damageBufferWait)
-        {
-            InvokeRepeating("DamageFlash2", 0.15f, 0.3f);
-        }
-
-    }
-
-    void DamageFlash2()
-    {
-
-        for (float repeatTime = 2.5f; repeatTime > 0; repeatTime -= Time.deltaTime)
-        {
-            damageFlashScript.FlashStart();
-        }
-
     }
 
 
@@ -195,14 +160,10 @@ public class PlayerController : MonoBehaviour
     {
         yield return new WaitForSeconds(damageBufferTime);
         damageBufferWait = false;
+        damageIndicator.gameObject.SetActive(false);
         //UnityEngine.Debug.Log("Buffer wait = " + damageBufferWait + " ...and should be false");
     }
 
-    IEnumerator DamageFlashCountdown()
-    {
-        yield return new WaitForSeconds(0.3f);
-        
-    }
 
     //ends the flamethrower power-up
     IEnumerator FlamethrowerCountdown()

@@ -147,9 +147,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackObject: {fileID: 601322145}
   flames: {fileID: 1261264253}
-  damageFlashScript: {fileID: 0}
+  damageIndicator: {fileID: 477164135}
   playerAudio: {fileID: 0}
   flameThrowerSlider: {fileID: 1807561882}
+  hasPowerUp: 0
   healthCount: 3
   maxHealth: 3
 --- !u!54 &40008281
@@ -886,7 +887,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &477164136
 Transform:
   m_ObjectHideFlags: 0
@@ -1655,6 +1656,8 @@ MonoBehaviour:
   gameOver1: {fileID: 1520125825}
   gameOver2: {fileID: 1669525653}
   timerText: {fileID: 2000527102}
+  flamethrowerBar: {fileID: 1807561882}
+  flamethrowerText: {fileID: 801205706}
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
@@ -3396,8 +3399,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 8.4, y: 0}
-  m_SizeDelta: {x: 10, y: 0}
+  m_AnchoredPosition: {x: 4.5705, y: 0}
+  m_SizeDelta: {x: 17.6591, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1832506566
 MonoBehaviour:

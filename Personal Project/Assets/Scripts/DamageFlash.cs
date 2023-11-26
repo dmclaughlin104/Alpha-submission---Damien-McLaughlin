@@ -15,6 +15,9 @@ public class DamageFlash : MonoBehaviour
     {
         meshRenderer = GetComponent<MeshRenderer>();
         origColour = meshRenderer.material.color;
+
+        InvokeRepeating("FlashStart", 0,  0.4f);
+            
     }
 
     // Update is called once per frame
@@ -47,7 +50,7 @@ public class DamageFlash : MonoBehaviour
         
     }
 
-    void FlashStop()
+    public void FlashStop()
     {
         meshRenderer.material.color = origColour;
     }
