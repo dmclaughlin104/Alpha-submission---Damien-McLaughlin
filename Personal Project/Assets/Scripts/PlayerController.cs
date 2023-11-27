@@ -14,6 +14,8 @@ public class PlayerController : MonoBehaviour
     private SpawnManager spawnManagerScript;
     [SerializeField] AudioSource playerAudio;
     [SerializeField] AudioClip slashSound;
+    [SerializeField] AudioClip hurtSound;
+    [SerializeField] AudioClip deathSound;
     [SerializeField] AudioClip flamethrowerSound;
     [SerializeField] Slider flameThrowerSlider;//move to Game Manager?
 
@@ -48,21 +50,47 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
 
-
-        //flame-throwerUI
+        //flame-throwerUI counter
+        //N.B this doesn't work as expected inside other methods
+        //needs to be constantly called every frame to give gradual decreasing effect
         if (hasPowerUp == true)
         {
             FlameThrowerUI();
         }
 
+        //if game is live, player can move
+        if (spawnManagerScript.gameActive)
+        {
+            MovementControls();
+            PlayerBoundaryControls();
+        }
+
+        //detect if player is attacking/slashing
+        if (Input.GetKeyDown(KeyCode.Space) && hasPowerUp == false && spawnManagerScript.gameActive)
+        {
+            //playing slash sound effect
+            //(here rather than in method in an attempt to reduce lag)
+            playerAudio.PlayOneShot (slashSound);
+
+            SlashEffect();
+            StartCoroutine(SlashEndCountdown());
+        }
 
 
+    }
+
+    //method which activates player movement controls
+    void MovementControls()
+    {
         //player movement controls:
         float forwardInput = Input.GetAxis("Vertical");
         float horizontalInput = Input.GetAxis("Horizontal");
         transform.Translate(Vector3.forward * forwardInput * forwardSpeed * Time.deltaTime);
         transform.Rotate(Vector3.up * horizontalInput * turnSpeed * Time.deltaTime);
+    }
 
+    void PlayerBoundaryControls()
+    {
         //if statement to control left player boundary
         if (transform.position.x < -xBoundary)
         {
@@ -86,28 +114,13 @@ public class PlayerController : MonoBehaviour
         {
             transform.position = new Vector3(transform.position.x, transform.position.y, -zBoundary);
         }//if
-
-        //detect if player is attacking/slashing
-        if (Input.GetKeyDown(KeyCode.Space) && hasPowerUp == false)
-        {
-            //playing slash sound effect
-            //(here rather than in method in an attempt to reduce lag)
-            playerAudio.PlayOneShot (slashSound);
-
-            SlashEffect();
-            StartCoroutine(SlashEndCountdown());
-        }
-
-
     }
 
 
-
-    //a method to represent the slash movement with stand in object
+    //a method to represent the slash movement with a stand in object
     void SlashEffect()
     {
         attackObject.SetActive(true);
-        
     }
 
     //ends the slash attack
@@ -125,7 +138,7 @@ public class PlayerController : MonoBehaviour
         //if player picks up power up, start flame-thrower
         if (other.CompareTag("PowerUp") && hasPowerUp == false)
         {
-            Destroy(other.gameObject);
+            Destroy(other.gameObject);//destroy power-up
             flames.SetActive(true);
             flameThrowerSlider.value = flamethrowerTime;//setting UI back to full
             hasPowerUp = true;
@@ -146,9 +159,16 @@ public class PlayerController : MonoBehaviour
     void HealthDamage()
     {
         healthCount--;
+        playerAudio.PlayOneShot(hurtSound);
         damageBufferWait = true;
         damageIndicator.gameObject.SetActive(true);
         StartCoroutine(DamageBufferCountdown());
+
+        //if health is fully depleted, play deathbell sound
+        if (healthCount == 0)
+        {
+            playerAudio.PlayOneShot(deathSound);
+        }
     }
 
 

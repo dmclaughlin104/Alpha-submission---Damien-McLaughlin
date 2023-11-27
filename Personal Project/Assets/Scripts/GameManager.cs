@@ -23,6 +23,7 @@ public class GameManager : MonoBehaviour
     private PlayerController playerControllerScript;
     private SpawnManager spawnManagerScript;
     private GameObject[] enemies;
+    private GameObject[] powerUps;
     private float secondsCount;
     private int minuteCount;
 
@@ -44,19 +45,22 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //finding enemies for array
+        //finding enemies and power-ups for array
         //needs to be in update to keep up to date
         enemies = GameObject.FindGameObjectsWithTag("Enemy");
-        
+        powerUps = GameObject.FindGameObjectsWithTag("PowerUp");
+
+        //updating UI and health variables
         UpdateWaveText(spawnManagerScript.nextWave);
         HealthManager(playerControllerScript.healthCount);
 
-        //activating UI timer
+        //activating UI gameplay timer
         if (spawnManagerScript.gameActive)
         {
             UpdateTimerUI();
         }
 
+        //activating flamethrower UI elements when relevant
         if (playerControllerScript.hasPowerUp)
         {
             FlameThrowerUIActive();
@@ -124,7 +128,16 @@ public class GameManager : MonoBehaviour
         {
             Destroy(enemy);
         }
+
+        //destroying all remaining power-ups at the end of the game
+        foreach (GameObject powerUp in powerUps)
+        {
+            Destroy(powerUp);
+        }
+
+
     }
+
 
     //reset game elements for next play;
     void ResetForNextPlay()
@@ -153,6 +166,7 @@ public class GameManager : MonoBehaviour
             ResetForNextPlay();
         }
     }
+
 
     void UpdateTimerUI()
     {
