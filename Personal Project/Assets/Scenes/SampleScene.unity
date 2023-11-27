@@ -886,7 +886,7 @@ GameObject:
   - component: {fileID: 400866130}
   - component: {fileID: 400866129}
   m_Layer: 5
-  m_Name: ImageFile
+  m_Name: Game Over Tint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -908,8 +908,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 379.89154, y: -224.44753}
-  m_SizeDelta: {x: 403.1909, y: 389.645}
+  m_AnchoredPosition: {x: 400, y: -224.92}
+  m_SizeDelta: {x: 800, y: 449.85}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &400866129
 MonoBehaviour:
@@ -924,14 +924,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 0.086274505, b: 0.2945897, a: 0.41960785}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Texture: {fileID: 2800000, guid: 8f3fb47dd4f9c7441a10d259ac8b6ece, type: 3}
+  m_Texture: {fileID: 0}
   m_UVRect:
     serializedVersion: 2
     x: 0
@@ -2097,6 +2097,7 @@ MonoBehaviour:
   healthText: {fileID: 46009039}
   gameOver1: {fileID: 1520125825}
   gameOver2: {fileID: 1669525653}
+  gameOverTint: {fileID: 400866129}
   timerText: {fileID: 2000527102}
   flamethrowerBar: {fileID: 1807561882}
   flamethrowerText: {fileID: 801205706}
@@ -2187,13 +2188,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.2770936, y: -0.031260416, z: 0.0010003606, w: 0.96033376}
-  m_LocalPosition: {x: 0.029999971, y: 2.9899998, z: -3.75}
+  m_LocalRotation: {x: 0.32427782, y: -0.031271618, z: -0.00054783723, w: 0.94544476}
+  m_LocalPosition: {x: 0.029999971, y: 4.25, z: -5.86}
   m_LocalScale: {x: 0.5654327, y: 0.92387754, z: 0.6532835}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 32.159, y: -4.029, z: -1.043}
+  m_LocalEulerAnglesHint: {x: 37.817, y: -4.319, z: -1.546}
 --- !u!114 &963194229
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2693,12 +2694,12 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 400866128}
   - {fileID: 46009038}
   - {fileID: 224226447}
   - {fileID: 1520125824}
   - {fileID: 1669525652}
   - {fileID: 1423409654}
-  - {fileID: 400866128}
   - {fileID: 304235913}
   - {fileID: 1807561881}
   - {fileID: 801205705}
@@ -3451,8 +3452,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278190280
-  m_fontColor: {r: 0.7830189, g: 0, b: 0, a: 1}
+    rgba: 4280045337
+  m_fontColor: {r: 0.098039225, g: 0.30980393, b: 0.10980393, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -3664,8 +3665,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4279304394
-  m_fontColor: {r: 0.7924528, g: 0, b: 0.06615878, a: 1}
+    rgba: 4280045337
+  m_fontColor: {r: 0.09838911, g: 0.31132078, b: 0.11067347, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:

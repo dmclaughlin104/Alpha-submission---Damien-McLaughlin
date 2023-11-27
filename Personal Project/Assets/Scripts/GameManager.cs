@@ -15,9 +15,11 @@ public class GameManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI healthText;
     [SerializeField] TextMeshProUGUI gameOver1;
     [SerializeField] TextMeshProUGUI gameOver2;
+    [SerializeField] RawImage gameOverTint;
     [SerializeField] TextMeshProUGUI timerText;
     [SerializeField] Slider flamethrowerBar;
     [SerializeField] TextMeshProUGUI flamethrowerText;
+
 
     //variables
     private PlayerController playerControllerScript;
@@ -88,6 +90,7 @@ public class GameManager : MonoBehaviour
 
         gameOver1.gameObject.SetActive(false);
         gameOver2.gameObject.SetActive(false);
+        gameOverTint.gameObject.SetActive(false);
 
         //while player still has health:
         if (playerControllerScript.healthCount > 0)
@@ -110,18 +113,23 @@ public class GameManager : MonoBehaviour
     {
         int gameOverWaveNumber = spawnManagerScript.nextWave;
 
+        //stopping spawning by making game inactive
         spawnManagerScript.gameActive = false;
 
-        startButton.gameObject.SetActive(true);
-
+        //turning off relevant UI
         healthText.gameObject.SetActive(false);
         waveText.gameObject.SetActive(false);
         timerText.gameObject.SetActive(false);
 
+        //turning on and updating relevant UI
         gameOver2.text = "You reached" + "\n" + "wave " + gameOverWaveNumber + "\n in \n" +
             minuteCount + " mins " + (int)secondsCount + " secs";
         gameOver1.gameObject.SetActive(true);
         gameOver2.gameObject.SetActive(true);
+        gameOverTint.gameObject.SetActive(true);
+
+        //brief pause before start button appears
+        StartCoroutine(RestartButtonPause());
 
         //destroying all remaining enemies at the end of the game
         foreach (GameObject enemy in enemies)
@@ -134,8 +142,13 @@ public class GameManager : MonoBehaviour
         {
             Destroy(powerUp);
         }
+    }
 
-
+    //enforcing a brief pause on Game Over before restart button appears
+    IEnumerator RestartButtonPause()
+    {
+        yield return new WaitForSeconds(2);
+        startButton.gameObject.SetActive(true);
     }
 
 
