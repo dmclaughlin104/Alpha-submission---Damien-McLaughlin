@@ -338,6 +338,7 @@
 "Assets/Scripts/DamageFlash.cs"
 "Assets/Scripts/EnemyController.cs"
 "Assets/Scripts/GameManager.cs"
+"Assets/Scripts/MenuUIHandler.cs"
 "Assets/Scripts/PlayerController.cs"
 "Assets/Scripts/SpawnManager.cs"
 "Assets/TextMesh Pro/Examples & Extras/Scripts/Benchmark01.cs"
