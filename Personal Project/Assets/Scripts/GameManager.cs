@@ -8,6 +8,9 @@ using Unity.VisualScripting;
 
 public class GameManager : MonoBehaviour
 {
+    //test with animations
+    public Animator playerAnim;
+
     //UI elements
     [SerializeField] TextMeshProUGUI titleScreen;
     [SerializeField] Button startButton;
@@ -79,6 +82,9 @@ public class GameManager : MonoBehaviour
     {
         //Debug.Log("Button clicked");
 
+        //turning off death animation
+        this.playerAnim.SetBool("isDead", false);
+
         //resetting UI timer to 00:00;
         minuteCount = 0;
         secondsCount = 0;
@@ -111,6 +117,10 @@ public class GameManager : MonoBehaviour
     //method to call the game over screen and reset elements for 
     void GameOverScreen()
     {
+
+        //test at ensuring player stops running during Game Over screen:
+        this.playerAnim.SetFloat("vertical", 0);
+
         int gameOverWaveNumber = spawnManagerScript.nextWave;
 
         //stopping spawning by making game inactive
@@ -177,6 +187,7 @@ public class GameManager : MonoBehaviour
         {
             GameOverScreen();
             ResetForNextPlay();
+            this.playerAnim.SetBool("isDead", true);
         }
     }
 
