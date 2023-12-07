@@ -52,7 +52,7 @@ public class GameManager : MonoBehaviour
     {
         //finding enemies and power-ups for array
         //needs to be in update to keep up to date
-        enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        enemies = GameObject.FindGameObjectsWithTag("Weed Enemy");
         powerUps = GameObject.FindGameObjectsWithTag("PowerUp");
 
         //updating UI and health variables

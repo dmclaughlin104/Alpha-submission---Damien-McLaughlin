@@ -24,6 +24,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] Slider flameThrowerSlider;//move to Game Manager?
 
 
+    public EnemyController enemyControllerScript;
+
     private float forwardSpeed = 5.0f;
     private float turnSpeed = 150.0f;
     private float xBoundary = 8;
@@ -39,6 +41,9 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+
+        //TEST
+        //enemyControllerScript =  GameObject.Find("Weed Enemy").GetComponent<EnemyController>();
 
         //finding Spawn Manager in order to take wave number variable
         spawnManagerScript = GameObject.Find("Spawn Manager").GetComponent<SpawnManager>();
@@ -74,7 +79,7 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space) && hasPowerUp == false && spawnManagerScript.gameActive)
         {
             //playing slash sound effect
-            //(here rather than in method in an attempt to reduce lag)
+            //here rather than in method in an attempt to reduce lag
             playerAudio.PlayOneShot (slashSound);
 
             SlashEffect();
@@ -89,7 +94,7 @@ public class PlayerController : MonoBehaviour
     {
         //player movement controls:
         float forwardInput = Input.GetAxis("Vertical");
-        float horizontalInput = Input.GetAxis("Horizontal");//axis following rotation of character
+        float horizontalInput = Input.GetAxis("Horizontal");
 
         //test
         //Vector3 movement = this.transform.forward * forwardInput + this.transform.right * horizontalInput;
@@ -165,7 +170,8 @@ public class PlayerController : MonoBehaviour
 
         }//if
         //or if player is struck by enemy
-        else if (other.CompareTag("Enemy") && damageBufferWait == false)
+        //had been testing with && enemyControllerScript.isDead == false
+        else if (other.CompareTag("Weed Enemy") && damageBufferWait == false)
         {
             HealthDamage();
             //UnityEngine.Debug.Log("Buffer wait = " + damageBufferWait + " ...and should be True");
@@ -221,7 +227,6 @@ public class PlayerController : MonoBehaviour
     //note - max value set in start method... does this need changed?
     void FlameThrowerUI()
     {
-
         float time = Time.deltaTime;
 
         flameThrowerSlider.value -= 1 * time;

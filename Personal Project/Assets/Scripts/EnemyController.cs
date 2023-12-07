@@ -4,39 +4,92 @@ using UnityEngine;
 
 public class EnemyController : MonoBehaviour
 {
+
+
+    //test with animator
+    public Animator enemyAnim;
+
     //variables
-    private GameObject player;
-    private float speed = 1.0f;
+    public string playerTag = "Player";
+    private float movementSpeed = 1f;
+    public bool isDead = false;
+
+    private Transform player;
 
     // Start is called before the first frame update
     void Start()
     {
-        player = GameObject.Find("Player");//assigning Player to variable
+        //getting weed animator
+        enemyAnim = GetComponent<Animator>();
+
+        // Find the player object using the tag
+        player = GameObject.FindGameObjectWithTag(playerTag).transform;
     }
 
     // Update is called once per frame
     void Update()
     {
-        //determining direction toward player
-        Vector3 lookDirection = ((player.transform.position + new Vector3(0, 1, 0)) - transform.position).normalized;
 
-        //moving enemy toward player
-        transform.Translate(lookDirection *  speed * Time.deltaTime);
+        if (!isDead)
+        {
+            // Look at the player
+            LookAtPlayer();
 
-        //rotating enemy to face player - not sure if this is working...
-        transform.LookAt(transform.position);
+            // Move toward the player
+            MoveTowardsPlayer();
+        }
 
+        //TEST
+        //EnemyAnimationControls();
 
     }
 
+    void LookAtPlayer()
+    {
+        Vector3 direction = (player.position - transform.position).normalized;
+        Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
+        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 5f);
+    }
+
+    void MoveTowardsPlayer()
+    {
+        // Calculate the movement direction towards the player
+        Vector3 moveDirection = (player.position - transform.position).normalized;
+
+        // Move the enemy towards the player
+        transform.Translate(moveDirection * movementSpeed * Time.deltaTime, Space.World);
+    }
 
     //destroy enemies if an attack is being used when a collision occurs
     private void OnTriggerEnter(Collider other)
     {
+        
         if (other.CompareTag("Attack"))
         {
-            Destroy(gameObject);
+            isDead = true;
+            this.enemyAnim.SetBool("isDead", true);
+            transform.gameObject.tag = "Dead Enemy";//changing tag so enemy doesn't cause health damage after dying
+            
+            Destroy(gameObject, 2);
         }
     }
+
+    /*
+    IEnumerator DeathDelay()
+    {
+        yield return new WaitForSeconds(1f);
+        Destroy(gameObject);
+    }
+    */
+
+    //TEST - imagining that enemy is always moving
+    /*
+    void EnemyAnimationControls()
+    {
+
+        this.enemyAnim.SetFloat("vertical", 1);
+        this.enemyAnim.SetFloat("horizontal", 1);
+    }
+    */
 
 }

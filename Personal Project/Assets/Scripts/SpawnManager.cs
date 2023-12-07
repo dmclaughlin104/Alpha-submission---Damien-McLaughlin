@@ -66,7 +66,7 @@ public class SpawnManager : MonoBehaviour
     {
         for (int count = 0; count < pWaveNumber; count++)
         {
-            Instantiate(enemyPrefab, GenerateSpawnPos(), enemyPrefab.transform.rotation);
+            Instantiate(enemyPrefab, GenerateSpawnPos(0), enemyPrefab.transform.rotation);
         }
     }
 
@@ -74,19 +74,21 @@ public class SpawnManager : MonoBehaviour
     //method to spawn power up
     public void SpawnPowerUp()
     {
-        Instantiate(powerUpPrefab, GenerateSpawnPos(), enemyPrefab.transform.rotation);
+        Instantiate(powerUpPrefab, GenerateSpawnPos(1.0f), enemyPrefab.transform.rotation);
     }
 
 
     //method to generate a new random spawn position
-    public Vector3 GenerateSpawnPos()
+    //float parameter helps differs between enemy/power-up spawn heigh on y Axis
+    public Vector3 GenerateSpawnPos(float objectYPosition)
     {
         //variables
         float spawnPosX = Random.Range(-spawnRange, spawnRange);
         float spawnPosZ = Random.Range(-spawnRange, spawnRange);
 
         //assigning random variables to Vector variables
-        Vector3 spawnPos = new Vector3(spawnPosX, 1.0f, spawnPosZ);
+        
+        Vector3 spawnPos = new Vector3(spawnPosX, objectYPosition, spawnPosZ);
 
         return spawnPos;
     }

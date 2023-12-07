@@ -8,6 +8,8 @@ TagManager:
   - Attack
   - PowerUp
   - Enemy
+  - Weed Enemy
+  - Dead Enemy
   layers:
   - Default
   - TransparentFX
