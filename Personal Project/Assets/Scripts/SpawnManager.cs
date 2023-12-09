@@ -5,13 +5,18 @@ using UnityEngine;
 public class SpawnManager : MonoBehaviour
 {
     //variables
+
+    public GameObject player;
     public GameObject enemyPrefab;
     public GameObject powerUpPrefab;
     private float spawnRange = 7;
     public int enemyCount;
     public int nextWave;
+    public float playerSafetyZone = 2f;
 
     public bool gameActive = false;
+
+
 
 
     // Start is called before the first frame update
@@ -43,9 +48,6 @@ public class SpawnManager : MonoBehaviour
     public void StartGameplay()
     {
 
-        //NOTE: if number spawning doesn't seem right, check int value in Unity...
-
-
         //if all enemies are defeated, spawn more
         if ((enemyCount == 0))
         {
@@ -64,9 +66,26 @@ public class SpawnManager : MonoBehaviour
     //spawn an enemy wave
     void SpawnEnemyWave(int pWaveNumber)
     {
+
         for (int count = 0; count < pWaveNumber; count++)
         {
-            Instantiate(enemyPrefab, GenerateSpawnPos(0), enemyPrefab.transform.rotation);
+
+            Vector3 spawnPosition = GenerateSpawnPos(0);
+
+            
+            //if the spawn position is outside of the bufferzone, spawn enemy
+            if (Vector3.Distance(spawnPosition, player.transform.position) > playerSafetyZone)
+            {
+                Instantiate(enemyPrefab, spawnPosition, enemyPrefab.transform.rotation);
+            }
+            //or else try again
+            else
+            {
+                SpawnEnemyWave(pWaveNumber);//recursive? Is this wise?
+            }
+
+            //old spawn method was simply:
+            //Instantiate(enemyPrefab, GenerateSpawnPos(0), enemyPrefab.transform.rotation);
         }
     }
 

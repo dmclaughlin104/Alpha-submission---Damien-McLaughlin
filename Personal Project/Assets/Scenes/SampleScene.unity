@@ -155,6 +155,7 @@ MonoBehaviour:
   deathSound: {fileID: 8300000, guid: 33e356cd561f6284e8fcd2334e96db4d, type: 3}
   flamethrowerSound: {fileID: 8300000, guid: 59398c670f438db4fa4fbc33dc0aca1a, type: 3}
   flameThrowerSlider: {fileID: 1807561882}
+  enemyControllerScript: {fileID: 0}
   hasPowerUp: 0
   healthCount: 3
   maxHealth: 3
@@ -1477,10 +1478,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 773693c071a524745a04664e77f87acf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 40008277}
   enemyPrefab: {fileID: 994612813390898335, guid: 972b29bf88f9d644fb7127271b2c7b88, type: 3}
   powerUpPrefab: {fileID: 6557536704614178829, guid: 486b8d2f04f028d4b8aa55c3025ee925, type: 3}
   enemyCount: 0
   nextWave: 0
+  playerSafetyZone: 1
   gameActive: 0
 --- !u!4 &494480046
 Transform:
@@ -1712,7 +1715,7 @@ GameObject:
   - component: {fileID: 601322150}
   m_Layer: 0
   m_Name: Attack Object
-  m_TagString: Attack
+  m_TagString: Slash
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2531,6 +2534,7 @@ MonoBehaviour:
   deathSound: {fileID: 0}
   flamethrowerSound: {fileID: 0}
   flameThrowerSlider: {fileID: 0}
+  enemyControllerScript: {fileID: 0}
   hasPowerUp: 0
   healthCount: 3
   maxHealth: 3
@@ -2567,6 +2571,7 @@ GameObject:
   - component: {fileID: 1139908919}
   - component: {fileID: 1139908918}
   - component: {fileID: 1139908917}
+  - component: {fileID: 1139908920}
   m_Layer: 0
   m_Name: Wall2
   m_TagString: Wall
@@ -2660,6 +2665,33 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1139908915}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!54 &1139908920
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1139908915}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &1140693349
 GameObject:
   m_ObjectHideFlags: 0
@@ -3102,7 +3134,7 @@ GameObject:
   - component: {fileID: 1261264259}
   m_Layer: 0
   m_Name: Flames
-  m_TagString: Attack
+  m_TagString: Flames
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3688,6 +3720,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9965604a44fa8c046aa5577ac84771f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyAnim: {fileID: 0}
+  smokeParticle: {fileID: 0}
+  weedBloodParticle: {fileID: 0}
+  enemyBodyParts: []
+  playerTag: Player
 --- !u!4 &1517998268
 Transform:
   m_ObjectHideFlags: 0

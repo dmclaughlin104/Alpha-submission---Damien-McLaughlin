@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class EnemyController : MonoBehaviour
 {
@@ -11,12 +12,20 @@ public class EnemyController : MonoBehaviour
 
     private Rigidbody enemyRB;
 
+    public GameObject smokeParticle;
+    public GameObject weedBloodParticle;
+
+
+    public GameObject[] enemyBodyParts;
+
+
     //variables
     public string playerTag = "Player";
     private float movementSpeed = 1f;
-    public bool isDead = false;
-    public float attackForce = 1.5f;
+    private bool isDead = false;
+    private float attackForce = 1.5f;
     Vector3 moveDirection;
+
 
     private Transform player;
 
@@ -71,30 +80,69 @@ public class EnemyController : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         
-        if (other.CompareTag("Attack"))
+        if (other.CompareTag("Slash"))
         {
-            isDead = true;//stopping enemy movement
-
-            //test with pushing enemy back on attack
+            StartCoroutine(fogDelay());
+            EnemyDeath();
+            //test with pushing enemy back on slash attack
             enemyRB.AddForce(-moveDirection * attackForce, ForceMode.Impulse);
-
-            this.enemyAnim.SetBool("isDead", true);
-            transform.gameObject.tag = "Dead Enemy";//changing tag so enemy doesn't cause health damage after dying
-
             Destroy(gameObject, 2);
+        }
+        else if (other.CompareTag("Flames"))
+        {
+            StartCoroutine(SmokeDelay());
+            EnemyDeath();
 
+            ChangeWeedMaterialBlack();
             
+            Destroy(gameObject, 4f);
+            
+        }
+    }
+
+
+    void EnemyDeath()
+    {
+        isDead = true;//stopping enemy movement
+        this.enemyAnim.SetBool("isDead", true);
+        transform.gameObject.tag = "Dead Enemy";//changing tag so enemy doesn't cause health damage after dying
+        
+
+    }
+
+    //method for changing key parts of enemy to black
+    void ChangeWeedMaterialBlack()
+    {
+
+        foreach (GameObject bodyPart in enemyBodyParts)
+        {
+            SkinnedMeshRenderer bodyPartMesh = bodyPart.GetComponent<SkinnedMeshRenderer>();
+
+            bodyPartMesh.material.color = Color.black;
 
         }
     }
 
-    /*
-    IEnumerator DeathDelay()
+
+    //waits until enemy is settled on ground before smoke effect starts
+    public IEnumerator SmokeDelay()
     {
-        yield return new WaitForSeconds(1f);
-        Destroy(gameObject);
+        yield return new WaitForSeconds(0.9f);
+        smokeParticle.SetActive(true);
     }
-    */
+
+    public IEnumerator fogDelay()
+    {
+        yield return new WaitForSeconds(0.25f);
+        weedBloodParticle.SetActive(true);
+    }
+
+    //waits until enemy is settled on ground before smoke effect starts
+    public IEnumerator EnemySinkDelay()
+    {
+        yield return new WaitForSeconds(0.5f);
+        transform.Translate(Vector3.down * 10f * Time.deltaTime);
+    }
 
     //TEST - imagining that enemy is always moving
     /*

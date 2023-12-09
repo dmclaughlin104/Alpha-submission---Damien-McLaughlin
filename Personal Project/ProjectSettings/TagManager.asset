@@ -10,6 +10,8 @@ TagManager:
   - Enemy
   - Weed Enemy
   - Dead Enemy
+  - Slash
+  - Flames
   layers:
   - Default
   - TransparentFX
