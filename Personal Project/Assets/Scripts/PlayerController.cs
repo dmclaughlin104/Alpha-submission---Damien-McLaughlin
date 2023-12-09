@@ -167,10 +167,8 @@ public class PlayerController : MonoBehaviour
 
             playerAudio.PlayOneShot(flamethrowerSound);
             StartCoroutine(FlamethrowerCountdown());
-
         }//if
         //or if player is struck by enemy
-        //had been testing with && enemyControllerScript.isDead == false
         else if (other.CompareTag("Weed Enemy") && damageBufferWait == false)
         {
             HealthDamage();

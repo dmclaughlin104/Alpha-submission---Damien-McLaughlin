@@ -60,6 +60,38 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -6733177361254619370, guid: 8d2c18a25e3406c43968a2b7cd3acf2a, type: 3}
+      propertyPath: m_Name
+      value: arm stem
+      objectReference: {fileID: 0}
+    - target: {fileID: -5568371526223589888, guid: 8d2c18a25e3406c43968a2b7cd3acf2a, type: 3}
+      propertyPath: m_Name
+      value: body stem 2
+      objectReference: {fileID: 0}
+    - target: {fileID: -3722405182657794361, guid: 8d2c18a25e3406c43968a2b7cd3acf2a, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: ae0fe5dd8367539458d9cb98f424accd, type: 2}
+    - target: {fileID: -3215555783603854218, guid: 8d2c18a25e3406c43968a2b7cd3acf2a, type: 3}
+      propertyPath: m_Name
+      value: hadn 2
+      objectReference: {fileID: 0}
+    - target: {fileID: -2932998491564163895, guid: 8d2c18a25e3406c43968a2b7cd3acf2a, type: 3}
+      propertyPath: m_Name
+      value: foot 2
+      objectReference: {fileID: 0}
+    - target: {fileID: -2839419009834737478, guid: 8d2c18a25e3406c43968a2b7cd3acf2a, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: ae0fe5dd8367539458d9cb98f424accd, type: 2}
+    - target: {fileID: -1995150314605265975, guid: 8d2c18a25e3406c43968a2b7cd3acf2a, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: ae0fe5dd8367539458d9cb98f424accd, type: 2}
+    - target: {fileID: -1018664272722485354, guid: 8d2c18a25e3406c43968a2b7cd3acf2a, type: 3}
+      propertyPath: m_Name
+      value: head
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 8d2c18a25e3406c43968a2b7cd3acf2a, type: 3}
       propertyPath: m_Name
       value: Weed Enemy
@@ -67,6 +99,22 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 8d2c18a25e3406c43968a2b7cd3acf2a, type: 3}
       propertyPath: m_TagString
       value: Weed Enemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 4424396828587804706, guid: 8d2c18a25e3406c43968a2b7cd3acf2a, type: 3}
+      propertyPath: m_Name
+      value: hand 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5914173764048766335, guid: 8d2c18a25e3406c43968a2b7cd3acf2a, type: 3}
+      propertyPath: m_Name
+      value: foot 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8003028576119023140, guid: 8d2c18a25e3406c43968a2b7cd3acf2a, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: ae0fe5dd8367539458d9cb98f424accd, type: 2}
+    - target: {fileID: 8513859187771203891, guid: 8d2c18a25e3406c43968a2b7cd3acf2a, type: 3}
+      propertyPath: m_Name
+      value: body stem 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

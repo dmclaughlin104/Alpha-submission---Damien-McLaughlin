@@ -9,10 +9,14 @@ public class EnemyController : MonoBehaviour
     //test with animator
     public Animator enemyAnim;
 
+    private Rigidbody enemyRB;
+
     //variables
     public string playerTag = "Player";
     private float movementSpeed = 1f;
     public bool isDead = false;
+    public float attackForce = 1.5f;
+    Vector3 moveDirection;
 
     private Transform player;
 
@@ -22,6 +26,8 @@ public class EnemyController : MonoBehaviour
         //getting weed animator
         enemyAnim = GetComponent<Animator>();
 
+        enemyRB = GetComponent<Rigidbody>();
+
         // Find the player object using the tag
         player = GameObject.FindGameObjectWithTag(playerTag).transform;
     }
@@ -30,6 +36,7 @@ public class EnemyController : MonoBehaviour
     void Update()
     {
 
+        //controlling enemy movement, as long as enemy isn't dead
         if (!isDead)
         {
             // Look at the player
@@ -54,7 +61,7 @@ public class EnemyController : MonoBehaviour
     void MoveTowardsPlayer()
     {
         // Calculate the movement direction towards the player
-        Vector3 moveDirection = (player.position - transform.position).normalized;
+        moveDirection = (player.position - transform.position).normalized;
 
         // Move the enemy towards the player
         transform.Translate(moveDirection * movementSpeed * Time.deltaTime, Space.World);
@@ -66,11 +73,18 @@ public class EnemyController : MonoBehaviour
         
         if (other.CompareTag("Attack"))
         {
-            isDead = true;
+            isDead = true;//stopping enemy movement
+
+            //test with pushing enemy back on attack
+            enemyRB.AddForce(-moveDirection * attackForce, ForceMode.Impulse);
+
             this.enemyAnim.SetBool("isDead", true);
             transform.gameObject.tag = "Dead Enemy";//changing tag so enemy doesn't cause health damage after dying
-            
+
             Destroy(gameObject, 2);
+
+            
+
         }
     }
 
