@@ -26,6 +26,8 @@ public class PlayerController : MonoBehaviour
 
     public EnemyController enemyControllerScript;
 
+    public ParticleSystem slashParticle;
+
     private float forwardSpeed = 5.0f;
     private float turnSpeed = 150.0f;
     private float xBoundary = 8;
@@ -140,6 +142,7 @@ public class PlayerController : MonoBehaviour
     void SlashEffect()
     {
         attackObject.SetActive(true);
+        slashParticle.Play();
         this.playerAnim.SetBool("isSlashing", true);
     }
 

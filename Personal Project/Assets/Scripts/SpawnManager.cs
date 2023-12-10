@@ -12,7 +12,7 @@ public class SpawnManager : MonoBehaviour
     private float spawnRange = 7;
     public int enemyCount;
     public int nextWave;
-    public float playerSafetyZone = 2f;
+    private float playerSafetyZone = 2f;
 
     public bool gameActive = false;
 
@@ -69,23 +69,7 @@ public class SpawnManager : MonoBehaviour
 
         for (int count = 0; count < pWaveNumber; count++)
         {
-
-            Vector3 spawnPosition = GenerateSpawnPos(0);
-
-            
-            //if the spawn position is outside of the bufferzone, spawn enemy
-            if (Vector3.Distance(spawnPosition, player.transform.position) > playerSafetyZone)
-            {
-                Instantiate(enemyPrefab, spawnPosition, enemyPrefab.transform.rotation);
-            }
-            //or else try again
-            else
-            {
-                SpawnEnemyWave(pWaveNumber);//recursive? Is this wise?
-            }
-
-            //old spawn method was simply:
-            //Instantiate(enemyPrefab, GenerateSpawnPos(0), enemyPrefab.transform.rotation);
+            Instantiate(enemyPrefab, GenerateSpawnPos(0), enemyPrefab.transform.rotation);
         }
     }
 
@@ -98,19 +82,28 @@ public class SpawnManager : MonoBehaviour
 
 
     //method to generate a new random spawn position
-    //float parameter helps differs between enemy/power-up spawn heigh on y Axis
+    //float parameter helps differs between enemy & power-up spawn height on y Axis
     public Vector3 GenerateSpawnPos(float objectYPosition)
     {
         //variables
         float spawnPosX = Random.Range(-spawnRange, spawnRange);
         float spawnPosZ = Random.Range(-spawnRange, spawnRange);
-
-        //assigning random variables to Vector variables
-        
         Vector3 spawnPos = new Vector3(spawnPosX, objectYPosition, spawnPosZ);
 
+        //ensures spawn position isn't too close to player position
+        while (Vector3.Distance(spawnPos, player.transform.position) < playerSafetyZone)
+        {
+            spawnPosX = Random.Range(-spawnRange, spawnRange);
+            spawnPosZ = Random.Range(-spawnRange, spawnRange);
+            spawnPos = new Vector3(spawnPosX, objectYPosition, spawnPosZ);
+            //Debug.Log(Vector3.Distance(spawnPos, player.transform.position));
+        }
+
         return spawnPos;
+
     }
+
+
 
     public void ResetNextWave()
     {

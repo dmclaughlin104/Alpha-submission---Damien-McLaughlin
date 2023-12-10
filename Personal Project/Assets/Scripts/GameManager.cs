@@ -50,6 +50,9 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //debug method for quickly skipping through levels
+        KillWaveDebug();
+
         //finding enemies and power-ups for array
         //needs to be in update to keep up to date
         enemies = GameObject.FindGameObjectsWithTag("Weed Enemy");
@@ -151,6 +154,18 @@ public class GameManager : MonoBehaviour
         foreach (GameObject powerUp in powerUps)
         {
             Destroy(powerUp);
+        }
+    }
+
+    //Debugging method to progress through waves
+    void KillWaveDebug()
+    {
+        if (Input.GetKeyDown(KeyCode.K))
+        {
+            foreach (GameObject enemy in enemies)
+            {
+                Destroy(enemy);
+            }
         }
     }
 
