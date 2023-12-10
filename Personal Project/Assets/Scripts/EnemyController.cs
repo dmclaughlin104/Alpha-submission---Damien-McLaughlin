@@ -18,13 +18,18 @@ public class EnemyController : MonoBehaviour
 
     public GameObject[] enemyBodyParts;
 
+    public SpawnManager spawnManagerScript;
+
 
     //variables
     public string playerTag = "Player";
     private float movementSpeed = 1f;
     private bool isDead = false;
     private float attackForce = 1.5f;
+    //private float jumpForce = 1f;
     Vector3 moveDirection;
+    float jumpZone = 2f;
+    private bool isJumping = false;
 
 
     private Transform player;
@@ -32,6 +37,8 @@ public class EnemyController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        spawnManagerScript = GameObject.Find("Spawn Manager").GetComponent<SpawnManager>();
+
         //getting weed animator
         enemyAnim = GetComponent<Animator>();
 
@@ -46,7 +53,7 @@ public class EnemyController : MonoBehaviour
     {
 
         //controlling enemy movement, as long as enemy isn't dead
-        if (!isDead)
+        if (!isDead && spawnManagerScript.gameActive)
         {
             // Look at the player
             LookAtPlayer();
@@ -54,6 +61,14 @@ public class EnemyController : MonoBehaviour
             // Move toward the player
             MoveTowardsPlayer();
         }
+
+        if (!spawnManagerScript.gameActive)
+        {
+            this.enemyAnim.SetBool("playerDead", true);
+        }
+
+        //jumpAnimation
+        CheckDistanceToPlayer();
 
         //TEST
         //EnemyAnimationControls();
@@ -82,7 +97,8 @@ public class EnemyController : MonoBehaviour
         
         if (other.CompareTag("Slash"))
         {
-            StartCoroutine(fogDelay());
+            StartCoroutine(bloodDelay());
+            //StartCoroutine(EnemySinkDelay());
             EnemyDeath();
             //test with pushing enemy back on slash attack
             enemyRB.AddForce(-moveDirection * attackForce, ForceMode.Impulse);
@@ -96,8 +112,49 @@ public class EnemyController : MonoBehaviour
             ChangeWeedMaterialBlack();
             
             Destroy(gameObject, 4f);
+        }
+        else if (other.CompareTag("Player"))
+        {
+            this.enemyAnim.SetBool("bitePlayer", true);
+            StartCoroutine(BiteCoolDown());
+        }
+
+    }
+
+    void CheckDistanceToPlayer()
+    {
+        if (Vector3.Distance(transform.position, player.transform.position) < jumpZone)
+        {
+            enemyAnim.SetBool("inZone", true);
+            isJumping = true;
+
+            //test using force for jump
+            //enemyRB.AddForce(Vector3.up * jumpForce * Time.deltaTime, ForceMode.Impulse);
+
+            StartCoroutine(JumpingCoolDown());
+        }
+        else
+        {
+            enemyAnim.SetBool("inZone", false);
             
         }
+    }
+
+
+    IEnumerator BiteCoolDown()
+    {
+        yield return new WaitForSeconds(1f);
+        this.enemyAnim.SetBool("bitePlayer", false);
+
+
+    }
+
+    IEnumerator JumpingCoolDown()
+    {
+        yield return new WaitForSeconds(1f);
+        isJumping = false;
+        
+
     }
 
 
@@ -107,7 +164,6 @@ public class EnemyController : MonoBehaviour
         this.enemyAnim.SetBool("isDead", true);
         transform.gameObject.tag = "Dead Enemy";//changing tag so enemy doesn't cause health damage after dying
         
-
     }
 
     //method for changing key parts of enemy to black
@@ -131,7 +187,7 @@ public class EnemyController : MonoBehaviour
         smokeParticle.SetActive(true);
     }
 
-    public IEnumerator fogDelay()
+    public IEnumerator bloodDelay()
     {
         yield return new WaitForSeconds(0.25f);
         weedBloodParticle.SetActive(true);
@@ -140,8 +196,8 @@ public class EnemyController : MonoBehaviour
     //waits until enemy is settled on ground before smoke effect starts
     public IEnumerator EnemySinkDelay()
     {
-        yield return new WaitForSeconds(0.5f);
-        transform.Translate(Vector3.down * 10f * Time.deltaTime);
+        yield return new WaitForSeconds(1.5f);
+        transform.Translate(Vector3.down * 15f * Time.deltaTime);
     }
 
     //TEST - imagining that enemy is always moving

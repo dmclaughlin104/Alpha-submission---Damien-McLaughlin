@@ -338,6 +338,7 @@
 "Assets/Scripts/DamageFlash.cs"
 "Assets/Scripts/EnemyController.cs"
 "Assets/Scripts/EnemyControllerV2.cs"
+"Assets/Scripts/FlamesRotate.cs"
 "Assets/Scripts/GameManager.cs"
 "Assets/Scripts/MenuUIHandler.cs"
 "Assets/Scripts/PlayerController.cs"

@@ -14,6 +14,8 @@ public class PlayerController : MonoBehaviour
     //variables
     [SerializeField] GameObject attackObject;
     [SerializeField] GameObject flames;
+    [SerializeField] GameObject flames2;
+    public GameObject grave;
     [SerializeField] GameObject damageIndicator;
     private SpawnManager spawnManagerScript;
     [SerializeField] AudioSource playerAudio;
@@ -38,6 +40,7 @@ public class PlayerController : MonoBehaviour
     public int maxHealth = 3;
     private float flamethrowerTime = 4.0f;
     private float damageBufferTime = 2.5f;
+    private bool isSlashing = false;
 
 
     // Start is called before the first frame update
@@ -73,12 +76,14 @@ public class PlayerController : MonoBehaviour
         //if game is live, player can move
         if (spawnManagerScript.gameActive)
         {
+            
+
             MovementControls();
             PlayerBoundaryControls();
         }
 
         //detect if player is attacking/slashing
-        if (Input.GetKeyDown(KeyCode.Space) && hasPowerUp == false && spawnManagerScript.gameActive)
+        if (Input.GetKeyDown(KeyCode.Space) && !isSlashing && hasPowerUp == false && spawnManagerScript.gameActive)
         {
             //playing slash sound effect
             //here rather than in method in an attempt to reduce lag
@@ -141,6 +146,7 @@ public class PlayerController : MonoBehaviour
     //a method to represent the slash movement with a stand in object
     void SlashEffect()
     {
+        isSlashing = true;
         attackObject.SetActive(true);
         slashParticle.Play();
         this.playerAnim.SetBool("isSlashing", true);
@@ -154,6 +160,8 @@ public class PlayerController : MonoBehaviour
         yield return new WaitForSeconds(0.2f);
         attackObject.SetActive(false);
         this.playerAnim.SetBool("isSlashing", false);
+        isSlashing = false;
+
     }
 
     //actions if triggers are activated
@@ -164,6 +172,7 @@ public class PlayerController : MonoBehaviour
         {
             Destroy(other.gameObject);//destroy power-up
             flames.SetActive(true);
+            flames2.SetActive(true);
             flameThrowerSlider.value = flamethrowerTime;//setting UI back to full
             hasPowerUp = true;
             this.playerAnim.SetBool("isFlamethrowing", true);
@@ -192,6 +201,7 @@ public class PlayerController : MonoBehaviour
         if (healthCount == 0)
         {
             playerAudio.PlayOneShot(deathSound);
+            
         }
     }
 
@@ -219,6 +229,7 @@ public class PlayerController : MonoBehaviour
     {
         yield return new WaitForSeconds(flamethrowerTime);
         flames.SetActive(false);
+        flames2.SetActive(false);
         hasPowerUp = false;
         this.playerAnim.SetBool("isFlamethrowing", false);
     }

@@ -85,6 +85,8 @@ public class GameManager : MonoBehaviour
     {
         //Debug.Log("Button clicked");
 
+        playerControllerScript.grave.gameObject.SetActive(false);
+
         //turning off death animation
         this.playerAnim.SetBool("isDead", false);
 
@@ -121,6 +123,8 @@ public class GameManager : MonoBehaviour
     void GameOverScreen()
     {
 
+        playerControllerScript.grave.gameObject.SetActive(true);
+
         //test at ensuring player stops running during Game Over screen:
         this.playerAnim.SetFloat("vertical", 0);
 
@@ -147,7 +151,7 @@ public class GameManager : MonoBehaviour
         //destroying all remaining enemies at the end of the game
         foreach (GameObject enemy in enemies)
         {
-            Destroy(enemy);
+            Destroy(enemy, 3.5f);//waiting 2 seconds so roar animation can play
         }
 
         //destroying all remaining power-ups at the end of the game
