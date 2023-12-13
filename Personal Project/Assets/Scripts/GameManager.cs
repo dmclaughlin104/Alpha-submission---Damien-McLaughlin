@@ -8,8 +8,8 @@ using Unity.VisualScripting;
 
 public class GameManager : MonoBehaviour
 {
-    //test with animations
-    public Animator playerAnim;
+    //player animator
+    [SerializeField] Animator playerAnim;
 
     //UI elements
     [SerializeField] TextMeshProUGUI titleScreen;
@@ -22,7 +22,6 @@ public class GameManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI timerText;
     [SerializeField] Slider flamethrowerBar;
     [SerializeField] TextMeshProUGUI flamethrowerText;
-
 
     //variables
     private PlayerController playerControllerScript;
@@ -43,17 +42,15 @@ public class GameManager : MonoBehaviour
 
         //adding listener to button
         startButton.onClick.AddListener(StartGame);
-
-
     }
 
     // Update is called once per frame
     void Update()
     {
         //debug method for quickly skipping through levels
-        KillWaveDebug();
+        //KillWaveDebug();
 
-        //finding enemies and power-ups for array
+        //finding enemies and power-ups for arrays
         //needs to be in update to keep up to date
         enemies = GameObject.FindGameObjectsWithTag("Weed Enemy");
         powerUps = GameObject.FindGameObjectsWithTag("PowerUp");
@@ -68,15 +65,6 @@ public class GameManager : MonoBehaviour
             UpdateTimerUI();
         }
 
-        //activating flamethrower UI elements when relevant
-        if (playerControllerScript.hasPowerUp)
-        {
-            FlameThrowerUIActive();
-        }
-        else
-        {
-            FlameThrowerUINotActive();
-        }
 
     }
 
@@ -85,6 +73,10 @@ public class GameManager : MonoBehaviour
     {
         //Debug.Log("Button clicked");
 
+        //telling spawn manager that game is active
+        spawnManagerScript.gameActive = true;
+
+        //set grave gameObject inactive
         playerControllerScript.grave.gameObject.SetActive(false);
 
         //turning off death animation
@@ -102,36 +94,29 @@ public class GameManager : MonoBehaviour
         gameOver1.gameObject.SetActive(false);
         gameOver2.gameObject.SetActive(false);
         gameOverTint.gameObject.SetActive(false);
+        titleScreen.gameObject.SetActive(false);
+        startButton.gameObject.SetActive(false);
 
-        //while player still has health:
-        if (playerControllerScript.healthCount > 0)
-        {
-            //telling spawn manager that game is active
-            spawnManagerScript.gameActive = true;
 
-            //setting title screen/button inactive when gameplay begins
-            titleScreen.gameObject.SetActive(false);
-            startButton.gameObject.SetActive(false);
-            timerText.gameObject.SetActive(true);
-
-        }
-        
- 
     }
 
-    //method to call the game over screen and reset elements for 
+    //method to call the game over screen and reset elements for next play
     void GameOverScreen()
     {
 
-        playerControllerScript.grave.gameObject.SetActive(true);
-
-        //test at ensuring player stops running during Game Over screen:
-        this.playerAnim.SetFloat("vertical", 0);
-
-        int gameOverWaveNumber = spawnManagerScript.nextWave;
-
         //stopping spawning by making game inactive
         spawnManagerScript.gameActive = false;
+
+        //turn on grave object
+        playerControllerScript.grave.gameObject.SetActive(true);
+
+        //ensuring player stops running during Game Over screen:
+        this.playerAnim.SetFloat("vertical", 0);
+
+        //assigning final wave number
+        //not necessarily needed as I could simply call the script variable
+        //retained in case useful for leaderboard
+        int gameOverWaveNumber = spawnManagerScript.nextWave;
 
         //turning off relevant UI
         healthText.gameObject.SetActive(false);
@@ -151,7 +136,7 @@ public class GameManager : MonoBehaviour
         //destroying all remaining enemies at the end of the game
         foreach (GameObject enemy in enemies)
         {
-            Destroy(enemy, 3.5f);//waiting 2 seconds so roar animation can play
+            Destroy(enemy, 3.5f);//waiting so enemy roar animation can play
         }
 
         //destroying all remaining power-ups at the end of the game
@@ -161,22 +146,10 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    //Debugging method to progress through waves
-    void KillWaveDebug()
-    {
-        if (Input.GetKeyDown(KeyCode.K))
-        {
-            foreach (GameObject enemy in enemies)
-            {
-                Destroy(enemy);
-            }
-        }
-    }
-
-    //enforcing a brief pause on Game Over before restart button appears
+    //stipulating a brief pause on Game Over before restart button appears
     IEnumerator RestartButtonPause()
     {
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(3.5f);
         startButton.gameObject.SetActive(true);
     }
 
@@ -210,12 +183,17 @@ public class GameManager : MonoBehaviour
         }
     }
 
-
+    //method to manage a UI timer
     void UpdateTimerUI()
     {
         //set timer UI
+        //second count follows deltaTime
         secondsCount += Time.deltaTime;
+
+        //formatting string for UI
         timerText.text = string.Format("{0:00}:{1:00}", minuteCount, secondsCount);
+
+        //count to 60 seconds, then add minute to counter and reset seconds
         if (secondsCount >= 60)
         {
             minuteCount++;
@@ -224,6 +202,20 @@ public class GameManager : MonoBehaviour
 
     }
 
+    //Debugging method to progress through waves
+    void KillWaveDebug()
+    {
+        if (Input.GetKeyDown(KeyCode.K))
+        {
+            foreach (GameObject enemy in enemies)
+            {
+                Destroy(enemy);
+            }
+        }
+    }
+
+    //had considered moving the flamethrower UI here, but have kept in Player Controller
+    /*
     void FlameThrowerUIActive()
     {
         flamethrowerBar.gameObject.SetActive(true);
@@ -235,6 +227,7 @@ public class GameManager : MonoBehaviour
         flamethrowerBar.gameObject.SetActive(false);
         flamethrowerText.gameObject.SetActive(false);
     }
+    */
 
 
 }

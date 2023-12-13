@@ -5,16 +5,16 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 
+//Main Player Controller script
 public class PlayerController : MonoBehaviour
 {
-    //test with animator
+    //player animator variable
     public Animator playerAnim;
 
-
-    //variables
+    //game objets, sounds & UI variables
     [SerializeField] GameObject attackObject;
-    [SerializeField] GameObject flames;
-    [SerializeField] GameObject flames2;
+    [SerializeField] GameObject flamesBox;//flames object with box collider
+    [SerializeField] GameObject flamesObject;//flames affect in scene
     public GameObject grave;
     [SerializeField] GameObject damageIndicator;
     private SpawnManager spawnManagerScript;
@@ -23,33 +23,26 @@ public class PlayerController : MonoBehaviour
     [SerializeField] AudioClip hurtSound;
     [SerializeField] AudioClip deathSound;
     [SerializeField] AudioClip flamethrowerSound;
-    [SerializeField] Slider flameThrowerSlider;//move to Game Manager?
+    [SerializeField] Slider flameThrowerSlider;
+    [SerializeField] ParticleSystem slashParticle;
 
-
-    public EnemyController enemyControllerScript;
-
-    public ParticleSystem slashParticle;
-
+    //variables
     private float forwardSpeed = 5.0f;
     private float turnSpeed = 150.0f;
     private float xBoundary = 8;
     private float zBoundary = 7;
     public bool hasPowerUp = false;
     private bool damageBufferWait = false;
+    private bool isSlashing = false;
     public int healthCount = 3;
     public int maxHealth = 3;
     private float flamethrowerTime = 4.0f;
     private float damageBufferTime = 2.5f;
-    private bool isSlashing = false;
 
 
     // Start is called before the first frame update
     void Start()
     {
-
-        //TEST
-        //enemyControllerScript =  GameObject.Find("Weed Enemy").GetComponent<EnemyController>();
-
         //finding Spawn Manager in order to take wave number variable
         spawnManagerScript = GameObject.Find("Spawn Manager").GetComponent<SpawnManager>();
 
@@ -67,7 +60,8 @@ public class PlayerController : MonoBehaviour
 
         //flame-throwerUI counter
         //N.B this doesn't work as expected inside other methods
-        //needs to be constantly called every frame to give gradual decreasing effect
+        //needs to be constantly called in Update() to give gradual decreasing effect
+
         if (hasPowerUp == true)
         {
             FlameThrowerUI();
@@ -76,19 +70,18 @@ public class PlayerController : MonoBehaviour
         //if game is live, player can move
         if (spawnManagerScript.gameActive)
         {
-            
-
             MovementControls();
             PlayerBoundaryControls();
         }
 
-        //detect if player is attacking/slashing
-        if (Input.GetKeyDown(KeyCode.Space) && !isSlashing && hasPowerUp == false && spawnManagerScript.gameActive)
+        //detect if player is attacking/slashing, if appropriate
+        if (Input.GetKeyDown(KeyCode.Space) && !isSlashing && !hasPowerUp && spawnManagerScript.gameActive)
         {
             //playing slash sound effect
             //here rather than in method in an attempt to reduce lag
             playerAudio.PlayOneShot (slashSound);
 
+            //carry out slash
             SlashEffect();
             StartCoroutine(SlashEndCountdown());
         }
@@ -99,22 +92,21 @@ public class PlayerController : MonoBehaviour
     //method which activates player movement controls
     void MovementControls()
     {
-        //player movement controls:
+        //assigning axis inputs to float variables
         float forwardInput = Input.GetAxis("Vertical");
         float horizontalInput = Input.GetAxis("Horizontal");
-
-        //test
-        //Vector3 movement = this.transform.forward * forwardInput + this.transform.right * horizontalInput;
-        //this.transform.position += movement * 0.05f;
-
+        
+        //moving player
         transform.Translate(Vector3.forward * forwardInput * forwardSpeed * Time.deltaTime);
         transform.Rotate(Vector3.up * horizontalInput * turnSpeed * Time.deltaTime);
 
+        //assigning axis values to animation controller
         this.playerAnim.SetFloat("vertical", forwardInput);
         this.playerAnim.SetFloat("horizontal", horizontalInput);
 
     }
 
+    //keeping player within bounds
     void PlayerBoundaryControls()
     {
         //if statement to control left player boundary
@@ -142,19 +134,16 @@ public class PlayerController : MonoBehaviour
         }//if
     }
 
-
-    //a method to represent the slash movement with a stand in object
+    //carry out player's slash attack
     void SlashEffect()
     {
         isSlashing = true;
-        attackObject.SetActive(true);
-        slashParticle.Play();
-        this.playerAnim.SetBool("isSlashing", true);
+        attackObject.SetActive(true);//make slash object live in scene
+        slashParticle.Play();//play particle effect
+        this.playerAnim.SetBool("isSlashing", true);//play animation
     }
 
     //ends the slash attack
-    //N.B. this won't work if included within single slash method
-    //as the slash will remain active
     IEnumerator SlashEndCountdown()
     {
         yield return new WaitForSeconds(0.2f);
@@ -169,16 +158,9 @@ public class PlayerController : MonoBehaviour
     {
         //if player picks up power up, start flame-thrower
         if (other.CompareTag("PowerUp") && hasPowerUp == false)
-        {
+        {         
             Destroy(other.gameObject);//destroy power-up
-            flames.SetActive(true);
-            flames2.SetActive(true);
-            flameThrowerSlider.value = flamethrowerTime;//setting UI back to full
-            hasPowerUp = true;
-            this.playerAnim.SetBool("isFlamethrowing", true);
-
-            playerAudio.PlayOneShot(flamethrowerSound);
-            StartCoroutine(FlamethrowerCountdown());
+            TurnOnFlameThrower();
         }//if
         //or if player is struck by enemy
         else if (other.CompareTag("Weed Enemy") && damageBufferWait == false)
@@ -188,32 +170,56 @@ public class PlayerController : MonoBehaviour
         }//else if
     }
 
+    //method to turn on flamethrower effects and begin Coroutine
+    void TurnOnFlameThrower()
+    {
+        flamesBox.SetActive(true);
+        flamesObject.SetActive(true);
+        flameThrowerSlider.value = flamethrowerTime;//setting UI back to full
+        hasPowerUp = true;
+        this.playerAnim.SetBool("isFlamethrowing", true);
+        playerAudio.PlayOneShot(flamethrowerSound);
+        StartCoroutine(FlamethrowerCountdown());
+    }
+
+    //ends the flamethrower power-up
+    IEnumerator FlamethrowerCountdown()
+    {
+        yield return new WaitForSeconds(flamethrowerTime);
+        flamesBox.SetActive(false);
+        flamesObject.SetActive(false);
+        hasPowerUp = false;
+        this.playerAnim.SetBool("isFlamethrowing", false);
+    }
+
+    //A flamethrower timer UI countdown
+    //needs to be called separately to other flamethrower effects to function as expected
+    //flamethrower slider value gradually decreased to 0 over 4 seconds;
+    void FlameThrowerUI()
+    {
+        flameThrowerSlider.value -= 1 * Time.deltaTime;
+    }
+
     //method for depleting health
     void HealthDamage()
     {
         healthCount--;
         playerAudio.PlayOneShot(hurtSound);
         damageBufferWait = true;
-        damageIndicator.gameObject.SetActive(true);
         StartCoroutine(DamageBufferCountdown());
 
+        //turn on damage indicator icon as long as player is still alive
+        if (healthCount > 0)
+        {
+            damageIndicator.gameObject.SetActive(true);
+        }
         //if health is fully depleted, play deathbell sound
-        if (healthCount == 0)
+        else if (healthCount == 0)
         {
             playerAudio.PlayOneShot(deathSound);
-            
         }
     }
 
-
-    //method to reset health to full
-    public void ResetHealth()
-    {
-        healthCount = maxHealth;
-    }
-
-
-    
     //damage buffer method to limit the amount of health you can lose in a short period
     IEnumerator DamageBufferCountdown()
     {
@@ -223,28 +229,11 @@ public class PlayerController : MonoBehaviour
         //UnityEngine.Debug.Log("Buffer wait = " + damageBufferWait + " ...and should be false");
     }
 
-
-    //ends the flamethrower power-up
-    IEnumerator FlamethrowerCountdown()
+    //method to reset health to full
+    public void ResetHealth()
     {
-        yield return new WaitForSeconds(flamethrowerTime);
-        flames.SetActive(false);
-        flames2.SetActive(false);
-        hasPowerUp = false;
-        this.playerAnim.SetBool("isFlamethrowing", false);
+        healthCount = maxHealth;
     }
-
-
-    //attempt at having a flamethrower timer UI
-    //note - max value set in start method... does this need changed?
-    void FlameThrowerUI()
-    {
-        float time = Time.deltaTime;
-
-        flameThrowerSlider.value -= 1 * time;
-
-    }
-
 
 
     //method for debugging

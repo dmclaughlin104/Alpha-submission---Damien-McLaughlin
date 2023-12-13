@@ -4,30 +4,36 @@ using Unity.VisualScripting;
 using UnityEngine;
 using static UnityEngine.GraphicsBuffer;
 
+
+//This method makes the camera function as if it were a child object of the player
+//I'd intially thought about taking the player out of the scene upon game-over and didn't want the camera also being removed.
+//This method was the result of some googling and trial and error to find the right position.
+//It is working, but I'd like to research further how each element functions.
+
 public class CameraMovement : MonoBehaviour
 {
-
+    //variables
     public GameObject player;
+    private Vector3 cameraPosition;
+    private float yChange =-1f;
+    private float positionMultiplier = 5f;
 
 
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
     // Update is called once per frame
     void LateUpdate()
     {
 
-        //this was the result of some googling. It is working, but I'd like to research further
-        Vector3 back = player.transform.forward;
-        back.y = -1f;
-        
-        // this determines how high. Increase for higher view angle.
-        transform.position = player.transform.position - back * 5;
+        //asigning player position/movement to camera object
+        cameraPosition = player.transform.forward;
 
+        //altering the camera Y position
+        cameraPosition.y = yChange;
+        
+        //determining the position of the camera behind the player
+        transform.position = player.transform.position - cameraPosition * positionMultiplier;//some trial and error to find right position
+
+        //making camera face same direction as player
         transform.forward = player.transform.position - transform.position;
 
     }

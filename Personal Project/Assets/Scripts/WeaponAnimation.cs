@@ -2,12 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+//this method is not currently used.
+//It involved some exploratory work to include a weapon item with my Mixamo animation
+//Ultimately proved a step too far at this stage, but I'd like to return to it
+
 public class WeaponAnimation : MonoBehaviour
 {
 
+
     Animator anim;
-
-
 
     public float lhweight = 1;
 

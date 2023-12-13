@@ -5,7 +5,6 @@ using UnityEngine;
 public class SpawnManager : MonoBehaviour
 {
     //variables
-
     public GameObject player;
     public GameObject enemyPrefab;
     public GameObject powerUpPrefab;
@@ -13,17 +12,8 @@ public class SpawnManager : MonoBehaviour
     public int enemyCount;
     public int nextWave;
     private float playerSafetyZone = 2f;
-
     public bool gameActive = false;
 
-
-
-
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
 
     // Update is called once per frame
     void Update()
@@ -31,23 +21,17 @@ public class SpawnManager : MonoBehaviour
         //setting enemy count - N.B. using the scripts applied, not the tag
         enemyCount = FindObjectsOfType<EnemyController>().Length;
 
-        //starting to call waves of enenmies... - move this to Game Manager?
-        // seem to be starting on wave two now... why?
-        
-        
+        //if the game is active, start gameplay spawning
         if (gameActive == true)
         {
             StartGameplay();
         }
-        
-
 
     }
 
-
+    //method to start main gameplay spawning loop
     public void StartGameplay()
     {
-
         //if all enemies are defeated, spawn more
         if ((enemyCount == 0))
         {
@@ -59,30 +43,28 @@ public class SpawnManager : MonoBehaviour
             {
                 SpawnPowerUp();
             }//if
-
         }//if
     }
 
     //spawn an enemy wave
     void SpawnEnemyWave(int pWaveNumber)
     {
-
+        //spawn a number of enemies corresponding with the wave number
         for (int count = 0; count < pWaveNumber; count++)
         {
             Instantiate(enemyPrefab, GenerateSpawnPos(0), enemyPrefab.transform.rotation);
         }
     }
 
-
     //method to spawn power up
     public void SpawnPowerUp()
     {
-        Instantiate(powerUpPrefab, GenerateSpawnPos(1.0f), enemyPrefab.transform.rotation);
+        Instantiate(powerUpPrefab, GenerateSpawnPos(1.0f), powerUpPrefab.transform.rotation);
     }
 
 
     //method to generate a new random spawn position
-    //float parameter helps differs between enemy & power-up spawn height on y Axis
+    //N.B. float parameter helps differ between enemy & power-up spawn height on y Axis
     public Vector3 GenerateSpawnPos(float objectYPosition)
     {
         //variables
@@ -90,7 +72,7 @@ public class SpawnManager : MonoBehaviour
         float spawnPosZ = Random.Range(-spawnRange, spawnRange);
         Vector3 spawnPos = new Vector3(spawnPosX, objectYPosition, spawnPosZ);
 
-        //ensures spawn position isn't too close to player position
+        //ensures spawn position isn't too close to player position by checking the distance
         while (Vector3.Distance(spawnPos, player.transform.position) < playerSafetyZone)
         {
             spawnPosX = Random.Range(-spawnRange, spawnRange);
@@ -100,11 +82,9 @@ public class SpawnManager : MonoBehaviour
         }
 
         return spawnPos;
-
     }
 
-
-
+    //method to reset next wave back to zero - called in GameManager script
     public void ResetNextWave()
     {
         nextWave = 0;

@@ -7,32 +7,28 @@ using UnityEngine;
 using UnityEditor;
 #endif
 
-// Sets the script to be executed later than all default scripts
-// This is helpful for UI, since other things may need to be initialized before setting the UI
+//short script to handle the change between the menu and the main s
 [DefaultExecutionOrder(1000)]
 public class MenuUIHandler : MonoBehaviour
 {
 
-
-    private void Start()
-    {
-
-
-    }
-
+    //load main scene
     public void StartNew()
     {
         SceneManager.LoadScene(1);
 
     }
+
+    //load menu
     public void BackToMenu()
     {
         SceneManager.LoadScene(0);
     }
 
+    //an exit method to stop playing the game
     public void Exit()
     {
-
+    //checking if game is playing played on the Unity editor or elsewhere
     #if UNITY_EDITOR
         EditorApplication.ExitPlaymode();
     #else
