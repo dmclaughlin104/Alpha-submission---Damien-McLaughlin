@@ -6869,7 +6869,7 @@ struct LayoutCache_tF844B2FAD6933B78FD5EFEBDE0529BCBAC19BA60  : public RuntimeOb
 	GenericStack_t1FB49AB7D847C97ABAA97AB232CA416CABD24C49* ___layoutGroups;
 	GUILayoutGroup_tD08496E80F283C290B5B90D7BFB3C9C7CC33CD8D* ___windows;
 };
-struct U3CRestartButtonPauseU3Ed__21_t00E1328969E72CC1AF5D32EB0F750DE6CEB55BE7  : public RuntimeObject
+struct U3CRestartButtonPauseU3Ed__19_t89650120C4D771E531D2FB155678EA1599437D34  : public RuntimeObject
 {
 	int32_t ___U3CU3E1__state;
 	RuntimeObject* ___U3CU3E2__current;
@@ -7112,19 +7112,19 @@ struct U3CU3Ec__DisplayClass20_0_t76F80B6FA73878DE6E2C5F498BDE2B5623E9DE46  : pu
 {
 	bool ___msgReceived;
 };
-struct U3CDamageBufferCountdownU3Ed__36_tDB453AC672C1DBC47BA68699CC01AB3D0EAB3A1F  : public RuntimeObject
+struct U3CDamageBufferCountdownU3Ed__39_tA73543F23D36DC9373DBFAB97ABA86EEEF7572C5  : public RuntimeObject
 {
 	int32_t ___U3CU3E1__state;
 	RuntimeObject* ___U3CU3E2__current;
 	PlayerController_t7E8D7042FA2D0DFEC54A1FCDF395161D88DAAE95* ___U3CU3E4__this;
 };
-struct U3CFlamethrowerCountdownU3Ed__33_t14529325A9D8C4EB239D01719A3EB8D32589C3AB  : public RuntimeObject
+struct U3CFlamethrowerCountdownU3Ed__35_tE39218FC9F65AE24F41063A418E851A7AAC29F4B  : public RuntimeObject
 {
 	int32_t ___U3CU3E1__state;
 	RuntimeObject* ___U3CU3E2__current;
 	PlayerController_t7E8D7042FA2D0DFEC54A1FCDF395161D88DAAE95* ___U3CU3E4__this;
 };
-struct U3CSlashEndCountdownU3Ed__30_tF2FA8ED5D30AF273C0D56D49F0B89D995FBD954B  : public RuntimeObject
+struct U3CSlashEndCountdownU3Ed__32_tE70CD51A2BD1654FA7ADEF1473E27F55F2006C48  : public RuntimeObject
 {
 	int32_t ___U3CU3E1__state;
 	RuntimeObject* ___U3CU3E2__current;
@@ -28867,8 +28867,6 @@ struct GameManager_tFE129A0017AF5BBD30FDCD4403B9CCEAE064C6B6  : public MonoBehav
 	TextMeshProUGUI_t101091AF4B578BB534C92E9D1EEAF0611636D957* ___gameOver2;
 	RawImage_tFF12F7DB574FBDC1863CF607C7A12A5D9F8D6179* ___gameOverTint;
 	TextMeshProUGUI_t101091AF4B578BB534C92E9D1EEAF0611636D957* ___timerText;
-	Slider_t87EA570E3D6556CABF57456C2F3873FFD86E652F* ___flamethrowerBar;
-	TextMeshProUGUI_t101091AF4B578BB534C92E9D1EEAF0611636D957* ___flamethrowerText;
 	PlayerController_t7E8D7042FA2D0DFEC54A1FCDF395161D88DAAE95* ___playerControllerScript;
 	SpawnManager_tD38605BF221D4CC849CF709A85499D2B698FD6FC* ___spawnManagerScript;
 	GameObjectU5BU5D_tFF67550DFCE87096D7A3734EA15B75896B2722CF* ___enemies;
@@ -28949,6 +28947,8 @@ struct PlayerController_t7E8D7042FA2D0DFEC54A1FCDF395161D88DAAE95  : public Mono
 	AudioClip_t5D272C4EB4F2D3ED49F1C346DEA373CF6D585F20* ___flamethrowerSound;
 	Slider_t87EA570E3D6556CABF57456C2F3873FFD86E652F* ___flameThrowerSlider;
 	ParticleSystem_tB19986EE308BD63D36FB6025EEEAFBEDB97C67C1* ___slashParticle;
+	Slider_t87EA570E3D6556CABF57456C2F3873FFD86E652F* ___flamethrowerBar;
+	TextMeshProUGUI_t101091AF4B578BB534C92E9D1EEAF0611636D957* ___flamethrowerText;
 	float ___forwardSpeed;
 	float ___turnSpeed;
 	float ___xBoundary;
@@ -41978,7 +41978,7 @@ const Il2CppTypeDefinitionSizes g_typeDefinitionSize3632 = { sizeof(U3CbloodDela
 extern const Il2CppTypeDefinitionSizes g_typeDefinitionSize3633;
 const Il2CppTypeDefinitionSizes g_typeDefinitionSize3633 = { sizeof(EnemyController_tBB576F8CA41609F61E7D9AD27B14D49FB5A11C4A), -1, 0, 0 };
 extern const Il2CppTypeDefinitionSizes g_typeDefinitionSize3634;
-const Il2CppTypeDefinitionSizes g_typeDefinitionSize3634 = { sizeof(U3CRestartButtonPauseU3Ed__21_t00E1328969E72CC1AF5D32EB0F750DE6CEB55BE7), -1, 0, 0 };
+const Il2CppTypeDefinitionSizes g_typeDefinitionSize3634 = { sizeof(U3CRestartButtonPauseU3Ed__19_t89650120C4D771E531D2FB155678EA1599437D34), -1, 0, 0 };
 extern const Il2CppTypeDefinitionSizes g_typeDefinitionSize3635;
 const Il2CppTypeDefinitionSizes g_typeDefinitionSize3635 = { sizeof(GameManager_tFE129A0017AF5BBD30FDCD4403B9CCEAE064C6B6), -1, 0, 0 };
 extern const Il2CppTypeDefinitionSizes g_typeDefinitionSize3636;
@@ -41986,11 +41986,11 @@ const Il2CppTypeDefinitionSizes g_typeDefinitionSize3636 = { sizeof(MenuUIHandle
 extern const Il2CppTypeDefinitionSizes g_typeDefinitionSize3637;
 const Il2CppTypeDefinitionSizes g_typeDefinitionSize3637 = { sizeof(ObjectRotate_tC7409FC1B47F0EDFD0892B72E634E0849F89C0C0), -1, 0, 0 };
 extern const Il2CppTypeDefinitionSizes g_typeDefinitionSize3638;
-const Il2CppTypeDefinitionSizes g_typeDefinitionSize3638 = { sizeof(U3CDamageBufferCountdownU3Ed__36_tDB453AC672C1DBC47BA68699CC01AB3D0EAB3A1F), -1, 0, 0 };
+const Il2CppTypeDefinitionSizes g_typeDefinitionSize3638 = { sizeof(U3CDamageBufferCountdownU3Ed__39_tA73543F23D36DC9373DBFAB97ABA86EEEF7572C5), -1, 0, 0 };
 extern const Il2CppTypeDefinitionSizes g_typeDefinitionSize3639;
-const Il2CppTypeDefinitionSizes g_typeDefinitionSize3639 = { sizeof(U3CFlamethrowerCountdownU3Ed__33_t14529325A9D8C4EB239D01719A3EB8D32589C3AB), -1, 0, 0 };
+const Il2CppTypeDefinitionSizes g_typeDefinitionSize3639 = { sizeof(U3CFlamethrowerCountdownU3Ed__35_tE39218FC9F65AE24F41063A418E851A7AAC29F4B), -1, 0, 0 };
 extern const Il2CppTypeDefinitionSizes g_typeDefinitionSize3640;
-const Il2CppTypeDefinitionSizes g_typeDefinitionSize3640 = { sizeof(U3CSlashEndCountdownU3Ed__30_tF2FA8ED5D30AF273C0D56D49F0B89D995FBD954B), -1, 0, 0 };
+const Il2CppTypeDefinitionSizes g_typeDefinitionSize3640 = { sizeof(U3CSlashEndCountdownU3Ed__32_tE70CD51A2BD1654FA7ADEF1473E27F55F2006C48), -1, 0, 0 };
 extern const Il2CppTypeDefinitionSizes g_typeDefinitionSize3641;
 const Il2CppTypeDefinitionSizes g_typeDefinitionSize3641 = { sizeof(PlayerController_t7E8D7042FA2D0DFEC54A1FCDF395161D88DAAE95), -1, 0, 0 };
 extern const Il2CppTypeDefinitionSizes g_typeDefinitionSize3642;

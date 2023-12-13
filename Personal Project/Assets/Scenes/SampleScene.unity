@@ -253,6 +253,8 @@ MonoBehaviour:
   flamethrowerSound: {fileID: 8300000, guid: 59398c670f438db4fa4fbc33dc0aca1a, type: 3}
   flameThrowerSlider: {fileID: 1807561882}
   slashParticle: {fileID: 853673271}
+  flamethrowerBar: {fileID: 1807561882}
+  flamethrowerText: {fileID: 801205706}
   hasPowerUp: 0
   healthCount: 3
   maxHealth: 3
@@ -4613,8 +4615,6 @@ MonoBehaviour:
   gameOver2: {fileID: 1669525653}
   gameOverTint: {fileID: 400866129}
   timerText: {fileID: 2000527102}
-  flamethrowerBar: {fileID: 1807561882}
-  flamethrowerText: {fileID: 801205706}
 --- !u!1 &915921826
 GameObject:
   m_ObjectHideFlags: 0
@@ -7917,7 +7917,6 @@ MonoBehaviour:
   weedBloodParticle: {fileID: 0}
   enemyBodyParts: []
   spawnManagerScript: {fileID: 0}
-  playerTag: Player
 --- !u!4 &1517998268
 Transform:
   m_ObjectHideFlags: 0

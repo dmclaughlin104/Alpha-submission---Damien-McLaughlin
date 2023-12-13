@@ -123,11 +123,11 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 2558}
     - Class: 114
-      Script: {instanceID: 2850}
+      Script: {instanceID: 2852}
     - Class: 114
-      Script: {instanceID: 3050}
+      Script: {instanceID: 3052}
     - Class: 114
-      Script: {instanceID: 3332}
+      Script: {instanceID: 3334}
     - Class: 114
       Script: {instanceID: 4220}
     - Class: 114
@@ -135,21 +135,21 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 4582}
     - Class: 114
-      Script: {instanceID: 5294}
+      Script: {instanceID: 5292}
     - Class: 114
-      Script: {instanceID: 5994}
+      Script: {instanceID: 5992}
     - Class: 114
-      Script: {instanceID: 6312}
+      Script: {instanceID: 6310}
     - Class: 114
-      Script: {instanceID: 6964}
+      Script: {instanceID: 6960}
     - Class: 114
-      Script: {instanceID: 130260}
+      Script: {instanceID: 44198}
     - Class: 114
-      Script: {instanceID: 130268}
+      Script: {instanceID: 44206}
     - Class: 114
-      Script: {instanceID: 130270}
+      Script: {instanceID: 44208}
     - Class: 114
-      Script: {instanceID: 130272}
+      Script: {instanceID: 44210}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -220,31 +220,31 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 2764}
     - Class: 114
-      Script: {instanceID: 2850}
+      Script: {instanceID: 2800}
     - Class: 114
-      Script: {instanceID: 3050}
+      Script: {instanceID: 2852}
     - Class: 114
-      Script: {instanceID: 3332}
+      Script: {instanceID: 3052}
     - Class: 114
-      Script: {instanceID: 3578}
+      Script: {instanceID: 3334}
     - Class: 114
-      Script: {instanceID: 5138}
+      Script: {instanceID: 3580}
     - Class: 114
-      Script: {instanceID: 5204}
+      Script: {instanceID: 5136}
     - Class: 114
-      Script: {instanceID: 5220}
+      Script: {instanceID: 5202}
     - Class: 114
-      Script: {instanceID: 5294}
+      Script: {instanceID: 5218}
     - Class: 114
-      Script: {instanceID: 5994}
+      Script: {instanceID: 5292}
     - Class: 114
-      Script: {instanceID: 6312}
+      Script: {instanceID: 5992}
     - Class: 114
-      Script: {instanceID: 6732}
+      Script: {instanceID: 6310}
     - Class: 114
-      Script: {instanceID: 6964}
+      Script: {instanceID: 6728}
     - Class: 114
-      Script: {instanceID: 56316}
+      Script: {instanceID: 6960}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -414,6 +414,12 @@ ScriptsOnlyBuild:
     assemblyName: Assembly-CSharp
     namespaceName: 
     className: EnemyController
+  - hash:
+      serializedVersion: 2
+      Hash: 2b913e5d11968154c045fc06c1aaae17
+    assemblyName: Assembly-CSharp
+    namespaceName: 
+    className: ObjectRotate
   - hash:
       serializedVersion: 2
       Hash: 1bfcfbce150993e56fae19f40f3da27f
@@ -890,7 +896,7 @@ ScriptsOnlyBuild:
     className: UnityOnTriggerStayMessageListener
   - hash:
       serializedVersion: 2
-      Hash: 0874f90aa85c94432f1db97d3a34e0fe
+      Hash: 90c5863cb4b4b40864873a8871880ea9
     assemblyName: Assembly-CSharp
     namespaceName: 
     className: PlayerController
@@ -908,7 +914,7 @@ ScriptsOnlyBuild:
     className: Toggle
   - hash:
       serializedVersion: 2
-      Hash: b55b5a5127a71c9940b20209bcc742d0
+      Hash: dc02ac86df9225d90b7f981e016a0224
     assemblyName: Assembly-CSharp
     namespaceName: 
     className: GameManager
@@ -1386,15 +1392,9 @@ ScriptsOnlyBuild:
     assemblyName: Unity.VisualScripting.Core
     namespaceName: Unity.VisualScripting
     className: UnityOnSliderValueChangedMessageListener
-  - hash:
-      serializedVersion: 2
-      Hash: 2b913e5d11968154c045fc06c1aaae17
-    assemblyName: Assembly-CSharp
-    namespaceName: 
-    className: ObjectRotate
   platform: 20
   scenePathNames:
   - Assets/Scenes/Menu.unity
   - Assets/Scenes/SampleScene.unity
   playerPath: C:/Users/dmcla/Desktop/Video Game Technologies/MDL7001 - Introduction
-    to Games Tech/Builds/Personal Project Build 3
+    to Games Tech/Builds/Personal Project Build 4

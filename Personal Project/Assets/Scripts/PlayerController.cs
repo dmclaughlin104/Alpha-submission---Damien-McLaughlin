@@ -25,6 +25,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] AudioClip flamethrowerSound;
     [SerializeField] Slider flameThrowerSlider;
     [SerializeField] ParticleSystem slashParticle;
+    [SerializeField] Slider flamethrowerBar;
+    [SerializeField] TextMeshProUGUI flamethrowerText;
 
     //variables
     private float forwardSpeed = 5.0f;
@@ -64,7 +66,11 @@ public class PlayerController : MonoBehaviour
 
         if (hasPowerUp == true)
         {
-            FlameThrowerUI();
+            FlameThrowerUIActive();
+        }
+        else
+        {
+            FlameThrowerUINotActive();
         }
 
         //if game is live, player can move
@@ -175,6 +181,7 @@ public class PlayerController : MonoBehaviour
     {
         flamesBox.SetActive(true);
         flamesObject.SetActive(true);
+        
         flameThrowerSlider.value = flamethrowerTime;//setting UI back to full
         hasPowerUp = true;
         this.playerAnim.SetBool("isFlamethrowing", true);
@@ -195,10 +202,20 @@ public class PlayerController : MonoBehaviour
     //A flamethrower timer UI countdown
     //needs to be called separately to other flamethrower effects to function as expected
     //flamethrower slider value gradually decreased to 0 over 4 seconds;
-    void FlameThrowerUI()
+    //flamethrower UI controller
+    void FlameThrowerUIActive()
     {
         flameThrowerSlider.value -= 1 * Time.deltaTime;
+        flamethrowerBar.gameObject.SetActive(true);
+        flamethrowerText.gameObject.SetActive(true);
     }
+
+    void FlameThrowerUINotActive()
+    {
+        flamethrowerBar.gameObject.SetActive(false);
+        flamethrowerText.gameObject.SetActive(false);
+    }
+
 
     //method for depleting health
     void HealthDamage()

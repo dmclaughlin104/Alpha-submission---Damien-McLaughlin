@@ -20,8 +20,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI gameOver2;
     [SerializeField] RawImage gameOverTint;
     [SerializeField] TextMeshProUGUI timerText;
-    [SerializeField] Slider flamethrowerBar;
-    [SerializeField] TextMeshProUGUI flamethrowerText;
+
 
     //variables
     private PlayerController playerControllerScript;
@@ -49,6 +48,7 @@ public class GameManager : MonoBehaviour
     {
         //debug method for quickly skipping through levels
         //KillWaveDebug();
+
 
         //finding enemies and power-ups for arrays
         //needs to be in update to keep up to date
@@ -214,8 +214,8 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    //had considered moving the flamethrower UI here, but have kept in Player Controller
     /*
+    //flamethrower UI controller
     void FlameThrowerUIActive()
     {
         flamethrowerBar.gameObject.SetActive(true);
