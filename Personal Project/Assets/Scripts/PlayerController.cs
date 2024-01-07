@@ -25,6 +25,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] AudioClip flamethrowerSound;
     [SerializeField] Slider flameThrowerSlider;
     [SerializeField] ParticleSystem slashParticle;
+    [SerializeField] ParticleSystem doubleSlashParticle;
     [SerializeField] Slider flamethrowerBar;
     [SerializeField] TextMeshProUGUI flamethrowerText;
 
@@ -35,7 +36,9 @@ public class PlayerController : MonoBehaviour
     private float zBoundary = 7;
     public bool hasPowerUp = false;
     private bool damageBufferWait = false;
+    private int slashCount = 0;
     private bool isSlashing = false;
+    private bool doubleSlashing = false;
     public int healthCount = 3;
     public int maxHealth = 3;
     private float flamethrowerTime = 4.0f;
@@ -59,6 +62,8 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //debug - not working as expected...
+        //UnityEngine.Debug.Log("Slash count = " + slashCount);
 
         //flame-throwerUI counter
         //N.B this doesn't work as expected inside other methods
@@ -80,16 +85,34 @@ public class PlayerController : MonoBehaviour
             PlayerBoundaryControls();
         }
 
+        
+
         //detect if player is attacking/slashing, if appropriate
-        if (Input.GetKeyDown(KeyCode.Space) && !isSlashing && !hasPowerUp && spawnManagerScript.gameActive)
+        //'&& !isSlashing' removed for test...
+        if (Input.GetKeyDown(KeyCode.Space) && !hasPowerUp && spawnManagerScript.gameActive && slashCount < 1)
         {
+            //adding one to slash count;
+            slashCount++;
+
             //playing slash sound effect
             //here rather than in method in an attempt to reduce lag
-            playerAudio.PlayOneShot (slashSound);
+            playerAudio.PlayOneShot(slashSound);
 
             //carry out slash
             SlashEffect();
-            StartCoroutine(SlashEndCountdown());
+            StartCoroutine(SlashObjectCountdown());
+            StartCoroutine(SlashCooldown());
+        }
+        else if (Input.GetKeyDown(KeyCode.Space) && !hasPowerUp && spawnManagerScript.gameActive && slashCount == 1)
+        {
+            slashCount++;
+            //here rather than in method in an attempt to reduce lag
+            playerAudio.PlayOneShot(slashSound);
+
+            //carry out second slash
+            DoubleSlash();
+            StartCoroutine(SlashObjectCountdown());
+
         }
 
 
@@ -149,14 +172,30 @@ public class PlayerController : MonoBehaviour
         this.playerAnim.SetBool("isSlashing", true);//play animation
     }
 
-    //ends the slash attack
-    IEnumerator SlashEndCountdown()
+    //experiment with a double slash
+    void DoubleSlash()
+    {
+        attackObject.SetActive(true);//make slash object live in scene
+        doubleSlashParticle.Play();//play particle effect
+        this.playerAnim.SetBool("doubleSlashing", true);//play animation
+    }
+
+    //ends the slash attack object and animations
+    IEnumerator SlashObjectCountdown()
     {
         yield return new WaitForSeconds(0.2f);
         attackObject.SetActive(false);
         this.playerAnim.SetBool("isSlashing", false);
+        this.playerAnim.SetBool("doubleSlashing", false);
         isSlashing = false;
+    }
 
+    //resets the slash count, allowing player to slash once again
+    IEnumerator SlashCooldown()
+    {
+        yield return new WaitForSeconds(1f);
+        slashCount = 0;
+        
     }
 
     //actions if triggers are activated
@@ -164,7 +203,8 @@ public class PlayerController : MonoBehaviour
     {
         //if player picks up power up, start flame-thrower
         if (other.CompareTag("PowerUp") && hasPowerUp == false)
-        {         
+        {
+            spawnManagerScript.powerUpCount--;//reducing number of power-Ups in scene to 0;
             Destroy(other.gameObject);//destroy power-up
             TurnOnFlameThrower();
         }//if

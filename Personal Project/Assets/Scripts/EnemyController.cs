@@ -126,7 +126,7 @@ public class EnemyController : MonoBehaviour
     //trigger jump animation if enemy gets within a certain distance of player
     void CheckDistanceToPlayer()
     {
-        float jumpZone = 2f;
+        float jumpZone = 1.5f;
 
         if (Vector3.Distance(transform.position, player.transform.position) < jumpZone)
         {
@@ -142,6 +142,7 @@ public class EnemyController : MonoBehaviour
         else
         {
             enemyAnim.SetBool("inZone", false);
+            isJumping = false;
         }
     }
 

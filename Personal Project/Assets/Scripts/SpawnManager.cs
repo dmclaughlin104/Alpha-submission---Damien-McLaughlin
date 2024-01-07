@@ -10,6 +10,7 @@ public class SpawnManager : MonoBehaviour
     public GameObject powerUpPrefab;
     private float spawnRange = 7;
     public int enemyCount;
+    public int powerUpCount = 0;
     public int nextWave;
     private float playerSafetyZone = 2f;
     public bool gameActive = false;
@@ -18,8 +19,10 @@ public class SpawnManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         //setting enemy count - N.B. using the scripts applied, not the tag
         enemyCount = FindObjectsOfType<EnemyController>().Length;
+        
 
         //if the game is active, start gameplay spawning
         if (gameActive == true)
@@ -28,6 +31,7 @@ public class SpawnManager : MonoBehaviour
         }
 
     }
+
 
     //method to start main gameplay spawning loop
     public void StartGameplay()
@@ -39,9 +43,11 @@ public class SpawnManager : MonoBehaviour
             SpawnEnemyWave(nextWave);
 
             //spawn a power up every even-numbered wave (over 4)
-            if (nextWave >= 4 && ((nextWave % 2) == 0))
+            //& only if there's no power-ups already in the scene 
+            if (nextWave >= 4 && ((nextWave % 2) == 0) && powerUpCount < 1)
             {
                 SpawnPowerUp();
+                powerUpCount++;
             }//if
         }//if
     }

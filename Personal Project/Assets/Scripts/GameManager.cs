@@ -47,7 +47,7 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         //debug method for quickly skipping through levels
-        //KillWaveDebug();
+        KillWaveDebug();
 
 
         //finding enemies and power-ups for arrays
@@ -143,6 +143,7 @@ public class GameManager : MonoBehaviour
         foreach (GameObject powerUp in powerUps)
         {
             Destroy(powerUp);
+            spawnManagerScript.powerUpCount = 0;
         }
     }
 
