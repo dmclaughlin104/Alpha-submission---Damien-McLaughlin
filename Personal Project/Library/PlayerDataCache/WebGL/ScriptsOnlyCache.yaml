@@ -1,5 +1,7 @@
 ScriptsOnlyBuild:
   usedScripts:
+    Assembly-CSharp-Editor.dll:
+    - ReadmeEditor
     Assembly-CSharp.dll:
     - CameraMovement
     - DamageFlash
@@ -8,6 +10,7 @@ ScriptsOnlyBuild:
     - MenuUIHandler
     - ObjectRotate
     - PlayerController
+    - Readme
     - SpawnManager
     Unity.Play.Publisher.Editor.dll:
     - Unity.Play.Publisher.Editor.AnalyticsHelper
@@ -29,10 +32,8 @@ ScriptsOnlyBuild:
     UnityEditor.Graphs.dll:
     - UnityEditor.Graphs.AnimationBlendTree.Graph
     - UnityEditor.Graphs.AnimationBlendTree.GraphGUI
-    - UnityEditor.Graphs.AnimationStateMachine.AnyStateNode
     - UnityEditor.Graphs.AnimationStateMachine.Graph
     - UnityEditor.Graphs.AnimationStateMachine.GraphGUI
-    - UnityEditor.Graphs.AnimationStateMachine.StateNode
     - UnityEditor.Graphs.AnimatorControllerTool
     UnityEditor.TestRunner.dll:
     - UnityEditor.TestTools.TestRunner.Api.CallbacksHolder
@@ -115,41 +116,41 @@ ScriptsOnlyBuild:
     - Class: 108
       Script: {instanceID: 0}
     - Class: 114
-      Script: {instanceID: 1806}
+      Script: {instanceID: 16852}
     - Class: 114
-      Script: {instanceID: 1848}
+      Script: {instanceID: 16894}
     - Class: 114
-      Script: {instanceID: 2432}
+      Script: {instanceID: 17478}
     - Class: 114
-      Script: {instanceID: 2558}
+      Script: {instanceID: 17604}
     - Class: 114
-      Script: {instanceID: 2852}
+      Script: {instanceID: 17898}
     - Class: 114
-      Script: {instanceID: 3052}
+      Script: {instanceID: 18098}
     - Class: 114
-      Script: {instanceID: 3334}
+      Script: {instanceID: 18380}
     - Class: 114
-      Script: {instanceID: 4220}
+      Script: {instanceID: 19266}
     - Class: 114
-      Script: {instanceID: 4328}
+      Script: {instanceID: 19374}
     - Class: 114
-      Script: {instanceID: 4582}
+      Script: {instanceID: 19628}
     - Class: 114
-      Script: {instanceID: 5292}
+      Script: {instanceID: 20338}
     - Class: 114
-      Script: {instanceID: 5992}
+      Script: {instanceID: 21038}
     - Class: 114
-      Script: {instanceID: 6310}
+      Script: {instanceID: 21356}
     - Class: 114
-      Script: {instanceID: 6960}
+      Script: {instanceID: 22006}
     - Class: 114
-      Script: {instanceID: 44198}
+      Script: {instanceID: 27768}
     - Class: 114
-      Script: {instanceID: 44206}
+      Script: {instanceID: 27776}
     - Class: 114
-      Script: {instanceID: 44208}
+      Script: {instanceID: 27778}
     - Class: 114
-      Script: {instanceID: 44210}
+      Script: {instanceID: 27780}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -210,41 +211,41 @@ ScriptsOnlyBuild:
     - Class: 108
       Script: {instanceID: 0}
     - Class: 114
-      Script: {instanceID: 1806}
+      Script: {instanceID: 16852}
     - Class: 114
-      Script: {instanceID: 1848}
+      Script: {instanceID: 16894}
     - Class: 114
-      Script: {instanceID: 2198}
+      Script: {instanceID: 17244}
     - Class: 114
-      Script: {instanceID: 2558}
+      Script: {instanceID: 17604}
     - Class: 114
-      Script: {instanceID: 2764}
+      Script: {instanceID: 17810}
     - Class: 114
-      Script: {instanceID: 2800}
+      Script: {instanceID: 17846}
     - Class: 114
-      Script: {instanceID: 2852}
+      Script: {instanceID: 17898}
     - Class: 114
-      Script: {instanceID: 3052}
+      Script: {instanceID: 18098}
     - Class: 114
-      Script: {instanceID: 3334}
+      Script: {instanceID: 18380}
     - Class: 114
-      Script: {instanceID: 3580}
+      Script: {instanceID: 18626}
     - Class: 114
-      Script: {instanceID: 5136}
+      Script: {instanceID: 20182}
     - Class: 114
-      Script: {instanceID: 5202}
+      Script: {instanceID: 20248}
     - Class: 114
-      Script: {instanceID: 5218}
+      Script: {instanceID: 20264}
     - Class: 114
-      Script: {instanceID: 5292}
+      Script: {instanceID: 20338}
     - Class: 114
-      Script: {instanceID: 5992}
+      Script: {instanceID: 21038}
     - Class: 114
-      Script: {instanceID: 6310}
+      Script: {instanceID: 21356}
     - Class: 114
-      Script: {instanceID: 6728}
+      Script: {instanceID: 21774}
     - Class: 114
-      Script: {instanceID: 6960}
+      Script: {instanceID: 22006}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -350,7 +351,7 @@ ScriptsOnlyBuild:
     className: SimpleScript
   - hash:
       serializedVersion: 2
-      Hash: fa8b4db1493320ce1c9ae8babf4fec87
+      Hash: 19f62fc524acdd33c1192e0d7dba41f3
     assemblyName: Assembly-CSharp
     namespaceName: 
     className: SpawnManager
@@ -896,7 +897,7 @@ ScriptsOnlyBuild:
     className: UnityOnTriggerStayMessageListener
   - hash:
       serializedVersion: 2
-      Hash: 90c5863cb4b4b40864873a8871880ea9
+      Hash: e76287dde49407b3254f88b042c7b5d7
     assemblyName: Assembly-CSharp
     namespaceName: 
     className: PlayerController
